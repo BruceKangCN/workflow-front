@@ -8,3 +8,10 @@
     </nav>
   </header>
 </template>
+
+<style scoped>
+li {
+  display: inline-block;
+  width: 80px;
+}
+</style>

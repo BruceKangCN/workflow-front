@@ -3,13 +3,13 @@ import Home from '../views/Home.vue';
 import ModelerView from '../views/ModelerView.vue';
 
 const routes: Array<RouteRecordRaw> = [
-    { path: '/', component: Home},
-    { path: '/modeler', component: ModelerView },
+  { path: '/', component: Home },
+  { path: '/modeler', component: ModelerView },
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
+  history: createWebHashHistory(),
+  routes,
 });
 
 export default  router;
