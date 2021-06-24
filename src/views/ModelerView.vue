@@ -1,15 +1,15 @@
 <template>
-  <h2>Modeler</h2>
-  <modeler />
+  <h2>ProcessModeler</h2>
+  <ProcessModeler />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Modeler from '../components/Modeler.vue';
+import ProcessModeler from '../components/ProcessModeler.vue';
 
 @Options({
   components: {
-    Modeler,
+    ProcessModeler,
   },
 })
 export default class ModelerView extends Vue {}

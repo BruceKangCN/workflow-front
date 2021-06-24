@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+import AppHome from '../views/AppHome.vue';
 import ModelerView from '../views/ModelerView.vue';
 
 const routes: Array<RouteRecordRaw> = [
-  { path: '/', component: Home },
+  { path: '/', component: AppHome },
   { path: '/modeler', component: ModelerView },
 ];
 
