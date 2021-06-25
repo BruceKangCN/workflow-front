@@ -16,7 +16,14 @@ export default class App extends Vue {}
 </script>
 
 <style>
+* {
+  margin: 0px;
+  padding: 0px;
+}
 #app {
+  /* 使app充满整个页面 */
+  width: 100%;
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
