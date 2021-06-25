@@ -1,30 +1,55 @@
 <template>
-  <!-- 操作面板 -->
-  <div class="buttons">
-    <b>download</b>
+  <!-- 工具栏 -->
+  <div v-show="withDiagram" class="tool-bar">
+    <span>language</span>
+    <!-- TODO 实现语言切换 -->
+    <!-- 切换语言 -->
+    <select v-model="locale" @change="changeLocale">
+      <option value="en-US">English</option>
+      <option value="zh-CN">简体中文</option>
+    </select>
+    <span class="v-splitter"></span>
+    <!-- 打开文件 -->
     <input
-      value="BPMN diagram"
-      id="modeler-download-diagram"
-      title="download BPMN diagram"
       type="button"
+      value="open diagram"
+      title="open BPMN diagram"
+      @click="openFileDialog"
+    />
+    <input
+      type="file"
+      id="file-input"
+      @change="openDiagramFile"
+      v-show="false"
+    />
+    <span class="v-splitter"></span>
+    <!-- 保存 -->
+    <span>save</span>
+    <!-- 保存为XML图表 -->
+    <input
+      type="button"
+      value="BPMN diagram"
+      title="save BPMN diagram"
       @click="saveXML"
     />
+    <!-- 保存为SVG图片 -->
     <input
-      value="SVG image"
-      id="modeler-download-svg"
-      title="download as SVG image"
       type="button"
+      value="SVG image"
+      title="save as SVG image"
       @click="saveSVG"
     />
-    <b> | </b>
+    <span class="v-splitter"></span>
     <!-- TODO 实现部署功能 -->
+    <!-- 部署 -->
     <input
-      value="deploy"
-      id="modeler-deploy"
-      title="deploy the process"
       type="button"
+      value="deploy"
+      title="deploy the process"
+      @click="deploy"
     />
   </div>
+  <!-- Modeler根节点 -->
   <div
     id="modeler-drop-zone"
     :class="state"
@@ -34,7 +59,7 @@
     <!-- 欢迎界面 -->
     <div class="message intro">
       <div class="note">
-        Drop BPMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
+        Drop BPMN diagram from your desktop or <input type="button" @click="openFileDialog" value="open a diagram" /><input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
       </div>
     </div>
     <!-- 错误信息界面 -->
@@ -66,6 +91,12 @@ import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
 import FileSaver from 'file-saver';
 
 @Options({
+  computed: {
+    // 判断当前是否存在图表
+    withDiagram() {
+      return this.state.includes('with-diagram');
+    },
+  },
   setup() {
     // 检测是否支持拖拽，若不支持则弹出信息
     if (!window.FileList || !window.FileReader) {
@@ -110,12 +141,14 @@ export default class ProcessModeler extends Vue {
   canvas;
   bpmnModeler;
 
+  // 语言选项
+  locale = 'en-US';
   // openDiagram捕获到的错误信息，初始为空
   errMsg = '';
   // 拖拽区域状态，初始值为显示提示信息
   state = 'content';
 
-  // 打开新图表，使用异步方式读取文件
+  // 打开新图表，使用异步方式读取内容
   async openDiagram(xml) {
     try {
       await this.bpmnModeler.importXML(xml);
@@ -125,6 +158,18 @@ export default class ProcessModeler extends Vue {
       this.errMsg = err.message;
       console.error(err);
     }
+  }
+
+  // 打开文件对话框
+  openFileDialog() {
+    document.querySelector('#file-input').click();
+  }
+
+  // 打开图表文件
+  openDiagramFile(event) {
+    // 只获取第一个文件
+    const file = event.target.files[0];
+    this.importFile(file);
   }
 
   // 处理拖拽事件
@@ -145,6 +190,11 @@ export default class ProcessModeler extends Vue {
 
     // 只获取第一个文件
     let file = event.dataTransfer.files[0];
+    this.importFile(file);
+  }
+
+  // 将文件导入Modeler
+  importFile(file) {
     let reader = new FileReader();
 
     // 设定阅读器加载文件时触发的操作
@@ -208,6 +258,21 @@ export default class ProcessModeler extends Vue {
       console.error('Error occured while saving SVG: ', err);
     }
   }
+
+  // TODO 实现语言切换
+  // 切换语言
+  changeLocale() {
+    console.warn('you select locale: ' + this.locale+ ', but this method is not implemented yet!');
+  }
+
+  // TODO 实现部署功能
+  // 部署流程到工作流引擎
+  async deploy() {
+    const {xml} = await this.bpmnModeler.saveXML({format: false});
+    console.log('prepare to deploy: ' + xml);
+    console.warn('but this method is not implemented yet!');
+    alert('not implement yet!');
+  }
 }
 </script>
 
@@ -216,6 +281,17 @@ export default class ProcessModeler extends Vue {
 @import '../assets/vendor/bpmn-js/assets/diagram-js.css';
 @import '../assets/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css';
 @import '../assets/vendor/bpmn-js-properties-panel/assets/bpmn-js-properties-panel.css';
+
+/* 自定义样式 */
+.tool-bar {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+.v-splitter {
+  /* display: inline-block; */
+  border-left: 3px solid #ccc;
+  margin: 0px 5px;
+}
 
 /* 以下复制自 bpmn-js-examples/properties-panel */
 * {
@@ -269,10 +345,6 @@ export default class ProcessModeler extends Vue {
 .content.with-diagram .canvas,
 .content.with-diagram .properties-panel-parent {
   display: block;
-}
-.buttons {
-  padding: 0;
-  margin: 0;
 }
 .properties-panel-parent {
   border-left: 1px solid #ccc;
