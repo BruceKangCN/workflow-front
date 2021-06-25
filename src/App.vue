@@ -24,6 +24,8 @@ export default class App extends Vue {}
   /* 使app充满整个页面 */
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

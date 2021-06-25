@@ -1,5 +1,5 @@
 <template>
-  <h2>ProcessModeler</h2>
+  <h2>Process Modeler</h2>
   <ProcessModeler />
 </template>
 

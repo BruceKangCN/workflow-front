@@ -1,14 +1,40 @@
 <template>
+  <!-- 操作面板 -->
+  <div class="buttons">
+    <b>download</b>
+    <input
+      value="BPMN diagram"
+      id="modeler-download-diagram"
+      title="download BPMN diagram"
+      type="button"
+      @click="saveXML"
+    />
+    <input
+      value="SVG image"
+      id="modeler-download-svg"
+      title="download as SVG image"
+      type="button"
+      @click="saveSVG"
+    />
+    <b> | </b>
+    <!-- TODO 实现部署功能 -->
+    <input
+      value="deploy"
+      id="modeler-deploy"
+      title="deploy the process"
+      type="button"
+    />
+  </div>
   <div
     id="modeler-drop-zone"
-    class="content"
+    :class="state"
     @dragover.capture="handelDragOver"
     @drop.capture="handleFileSelect"
   >
     <!-- 欢迎界面 -->
     <div class="message intro">
       <div class="note">
-        Drop BPMN diagram from your desktop or <span @click="createDiagram">create a new diagram</span> to get started.
+        Drop BPMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
       </div>
     </div>
     <!-- 错误信息界面 -->
@@ -25,26 +51,6 @@
     <div id="modeler-canvas" class="canvas"></div>
     <!-- 属性面板 -->
     <div id="modeler-properties-panel" class="properties-panel-parent"></div>
-    <!-- 下载按钮列表 -->
-    <ul class="buttons">
-      <li>download</li>
-      <li>
-        <input
-          value="BPMN diagram"
-          id="modeler-download-diagram"
-          title="download BPMN diagram"
-          type="button"
-        />
-      </li>
-      <li>
-        <input
-          value="SVG image"
-          id="modeler-download-svg"
-          title="download as SVG image"
-          type="button"
-        />
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -57,8 +63,22 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+import FileSaver from 'file-saver';
 
 @Options({
+  setup() {
+    // 检测是否支持拖拽，若不支持则弹出信息
+    if (!window.FileList || !window.FileReader) {
+      const msg =[
+        'Looks like you use an older browser ',
+        'that does not support drag and drop.',
+        'Try using Chrome, Firefox or the Internet Explorer > 10.',
+      ].join('');
+      console.error(msg);
+      window.alert(msg);
+    }
+  },
+  // 在实例挂载时初始化container, canvas, bpmnModeler字段，否则无法获取到DOM
   mounted() {
     // 容器元素
     this.container = document.querySelector('#modeler-drop-zone');
@@ -81,29 +101,27 @@ import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
       moddelExtensions: {
         camunda: camundaModdleDescriptor,
       },
+      // TODO i18n
     });
-    console.log(this.bpmnModeler);
   },
 })
 export default class ProcessModeler extends Vue {
-
   container;
   canvas;
   bpmnModeler;
 
   // openDiagram捕获到的错误信息，初始为空
   errMsg = '';
+  // 拖拽区域状态，初始值为显示提示信息
+  state = 'content';
 
   // 打开新图表，使用异步方式读取文件
   async openDiagram(xml) {
-    let classes = this.container.classList;
     try {
       await this.bpmnModeler.importXML(xml);
-      classes.remove('with-error');
-      classes.add('with-diagram');
+      this.state = 'content with-diagram';
     } catch (err) {
-      classes.remove('with-diagram');
-      classes.add('with-error');
+      this.state = 'content with-error';
       this.errMsg = err.message;
       console.error(err);
     }
@@ -140,6 +158,56 @@ export default class ProcessModeler extends Vue {
     // 以文本形式读取file
     reader.readAsText(file);
   }
+
+  // 新建图表功能
+  createNewDiagram() {
+    // 定义一个最基本的图表
+    const xml = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_0g4n8qy" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">',
+      '  <bpmn:process id="Process_1gid784" isExecutable="true">',
+      '    <bpmn:startEvent id="StartEvent_1" />',
+      '  </bpmn:process>',
+      '  <bpmndi:BPMNDiagram id="BPMNDiagram_1">',
+      '    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1gid784">',
+      '      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">',
+      '        <dc:Bounds x="179" y="159" width="36" height="36" />',
+      '      </bpmndi:BPMNShape>',
+      '    </bpmndi:BPMNPlane>',
+      '  </bpmndi:BPMNDiagram>',
+      '</bpmn:definitions>',
+    ].join('\n');
+    // 打开该图表
+    this.openDiagram(xml);
+  }
+
+  // 将流程保存为XML格式的定义，异步执行
+  async saveXML() {
+    try {
+      // 获取XML文本，不执行格式化
+      const {xml} = await this.bpmnModeler.saveXML({format: false});
+      // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
+      const blob = new Blob([xml], {type: 'application/bpmn20-xml;charset=utf-8'});
+      // 保存该对象
+      FileSaver.saveAs(blob, 'diagram.bpmn');
+    } catch(err) {
+      console.error('Error occured while saving XML: ', err);
+    }
+  }
+
+  // 将流程保存为SVG格式的图片，异步执行
+  async saveSVG() {
+    try {
+      // 获取SVG文本
+      const {svg} = await this.bpmnModeler.saveSVG();
+      // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
+      const blob = new Blob([svg], {type: 'application/bpmn20-xml;charset=utf-8'});
+      // 保存该对象
+      FileSaver.saveAs(blob, 'diagram.svg');
+    } catch(err) {
+      console.error('Error occured while saving SVG: ', err);
+    }
+  }
 }
 </script>
 
@@ -153,23 +221,12 @@ export default class ProcessModeler extends Vue {
 * {
   box-sizing: border-box;
 }
-body,
-html {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  height: 100%;
-  max-height: 100%;
-  padding: 0;
-  margin: 0;
-}
-a:link {
-  text-decoration: none;
-}
 .content {
   position: relative;
   width: 100%;
   height: 100%;
   display: flex;
+  align-items: stretch;
 }
 .content > .message {
   width: 100%;
@@ -214,28 +271,8 @@ a:link {
   display: block;
 }
 .buttons {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
   padding: 0;
   margin: 0;
-  list-style: none;
-}
-.buttons > li {
-  display: inline-block;
-  margin-right: 10px;
-}
-.buttons > li > a {
-  background: #DDD;
-  border: solid 1px #666;
-  display: inline-block;
-  padding: 5px;
-}
-.buttons a {
-  opacity: 0.3;
-}
-.buttons a.active {
-  opacity: 1;
 }
 .properties-panel-parent {
   border-left: 1px solid #ccc;

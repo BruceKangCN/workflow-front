@@ -1,13 +1,13 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw, Router } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import ModelerView from '../views/ModelerView.vue';
+import ProcessModelerView from '../views/ProcessModelerView.vue';
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   { path: '/', component: HomeView },
-  { path: '/modeler', component: ModelerView },
+  { path: '/modeler', component: ProcessModelerView },
 ];
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
