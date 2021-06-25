@@ -144,8 +144,12 @@ export default class ProcessModeler extends Vue {
 </script>
 
 <style scoped>
-/* 复制自 bpmn-js-examples/properties-panel */
+/* bpmnjs内置样式 */
+@import '../assets/vendor/bpmn-js/assets/diagram-js.css';
+@import '../assets/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css';
+@import '../assets/vendor/bpmn-js-properties-panel/assets/bpmn-js-properties-panel.css';
 
+/* 以下复制自 bpmn-js-examples/properties-panel */
 * {
   box-sizing: border-box;
 }
