@@ -2,15 +2,6 @@
   <!-- TODO 添加快捷键 -->
   <!-- 工具栏 -->
   <div v-show="withDiagram" class="tool-bar">
-    <strong>{{ processId }}</strong>
-    <!-- TODO 实现语言切换 -->
-    <!-- 切换语言 -->
-    <span>language</span>
-    <select v-model="locale" @change="changeLocale">
-      <option value="en-US">English</option>
-      <option value="zh-CN">简体中文</option>
-    </select>
-    <span class="v-splitter"></span>
     <!-- 打开文件 -->
     <input
       type="button"
@@ -89,10 +80,12 @@
 // **NOTE.en-US**: this is a **JS module**, because bpmn-js is written in js
 // **NOTE.zh-CN**: 这是一个 **JS模块**，因为 bpmn-js 是使用 js 编写的
 import { Vue, Options } from 'vue-class-component';
+
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+
 import FileSaver from 'file-saver';
 
 @Options({
@@ -140,7 +133,6 @@ import FileSaver from 'file-saver';
     });
     // 指令栈，用于撤销/重做
     this.commandStack = this.bpmnModeler.get('commandStack');
-    // TODO i18n
   },
 })
 export default class ProcessModeler extends Vue {
@@ -153,8 +145,6 @@ export default class ProcessModeler extends Vue {
     return this.bpmnModeler.getDefinitions().rootElements[0];
   }
 
-  // 语言选项
-  locale = 'en-US';
   // openDiagram捕获到的错误信息，初始为空
   errMsg = '';
   // 拖拽区域状态，初始值为显示提示信息
@@ -269,12 +259,6 @@ export default class ProcessModeler extends Vue {
     } catch(err) {
       console.error('Error occured while saving SVG: ', err);
     }
-  }
-
-  // TODO 实现语言切换
-  // 切换语言
-  changeLocale() {
-    console.warn('you select locale: ' + this.locale+ ', but this method is not implemented yet!');
   }
 
   // TODO 实现部署功能
