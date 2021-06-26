@@ -4,7 +4,7 @@ import ProcessModelerView from '../views/ProcessModelerView.vue';
 
 const routes: RouteRecordRaw[] = [
   { path: '/', component: HomeView },
-  { path: '/modeler', component: ProcessModelerView },
+  { path: '/process-modeler', component: ProcessModelerView },
 ];
 
 const router: Router = createRouter({

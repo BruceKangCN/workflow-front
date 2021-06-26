@@ -3,7 +3,7 @@
     <nav>
       <ul>
         <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/modeler">Modeler</router-link></li>
+        <li><router-link to="/process-modeler">Process Modeler</router-link></li>
       </ul>
     </nav>
   </header>
@@ -13,7 +13,7 @@
 li {
   /* 使导航栏内li元素横向排列 */
   display: inline-block;
-  width: 100px;
+  width: 240px;
 }
 /* 用于设置router-link内置的a标签样式 */
 a {

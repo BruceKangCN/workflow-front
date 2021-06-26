@@ -141,6 +141,7 @@ export default class ProcessModeler extends Vue {
   bpmnModeler;
   commandStack;
 
+  // 获取流程定义
   getProcessDefinitions() {
     return this.bpmnModeler.getDefinitions().rootElements[0];
   }
