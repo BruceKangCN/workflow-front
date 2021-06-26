@@ -1,9 +1,11 @@
 <template>
+  <!-- TODO 添加快捷键 -->
   <!-- 工具栏 -->
   <div v-show="withDiagram" class="tool-bar">
-    <span>language</span>
+    <strong>{{ processId }}</strong>
     <!-- TODO 实现语言切换 -->
     <!-- 切换语言 -->
+    <span>language</span>
     <select v-model="locale" @change="changeLocale">
       <option value="en-US">English</option>
       <option value="zh-CN">简体中文</option>
@@ -39,6 +41,9 @@
       title="save as SVG image"
       @click="saveSVG"
     />
+    <span class="v-splitter"></span>
+    <input type="button" value="<-" title="undo" @click="undo" />
+    <input type="button" value="->" title="redo" @click="redo" />
     <span class="v-splitter"></span>
     <!-- TODO 实现部署功能 -->
     <!-- 部署 -->
@@ -132,14 +137,21 @@ import FileSaver from 'file-saver';
       moddelExtensions: {
         camunda: camundaModdleDescriptor,
       },
-      // TODO i18n
     });
+    // 指令栈，用于撤销/重做
+    this.commandStack = this.bpmnModeler.get('commandStack');
+    // TODO i18n
   },
 })
 export default class ProcessModeler extends Vue {
   container;
   canvas;
   bpmnModeler;
+  commandStack;
+
+  getProcessDefinitions() {
+    return this.bpmnModeler.getDefinitions().rootElements[0];
+  }
 
   // 语言选项
   locale = 'en-US';
@@ -239,7 +251,7 @@ export default class ProcessModeler extends Vue {
       // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
       const blob = new Blob([xml], {type: 'application/bpmn20-xml;charset=utf-8'});
       // 保存该对象
-      FileSaver.saveAs(blob, 'diagram.bpmn');
+      FileSaver.saveAs(blob, this.getProcessDefinitions().id + '.bpmn');
     } catch(err) {
       console.error('Error occured while saving XML: ', err);
     }
@@ -253,7 +265,7 @@ export default class ProcessModeler extends Vue {
       // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
       const blob = new Blob([svg], {type: 'application/bpmn20-xml;charset=utf-8'});
       // 保存该对象
-      FileSaver.saveAs(blob, 'diagram.svg');
+      FileSaver.saveAs(blob, this.getProcessDefinitions().id + '.svg');
     } catch(err) {
       console.error('Error occured while saving SVG: ', err);
     }
@@ -272,6 +284,16 @@ export default class ProcessModeler extends Vue {
     console.log('prepare to deploy: ' + xml);
     console.warn('but this method is not implemented yet!');
     alert('not implement yet!');
+  }
+
+  // 撤销
+  undo() {
+    this.commandStack.undo();
+  }
+
+  // 重做
+  redo() {
+    this.commandStack.redo();
   }
 }
 </script>
