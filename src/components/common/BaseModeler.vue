@@ -1,7 +1,7 @@
 <script>
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// **NOTE.en-US**: this is a **JS module**, because bpmn-js, dmn-js, form-js is written in js
-// **NOTE.zh-CN**: 这是一个 **JS模块**，因为 bpmn-js，dmn-js，form-js 是使用 js 编写的
+// **NOTE.en-US**: this is a **JS module**, because bpmn-js, dmn-js written in js
+// **NOTE.zh-CN**: 这是一个 **JS模块**，因为 bpmn-js，dmn-js 是使用 js 编写的
 import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';
 import ToolBar from './ToolBar.vue';
@@ -63,18 +63,18 @@ export default class DecisionModeler extends Vue {
     event.preventDefault();
 
     // 只获取第一个文件
-    let file = event.dataTransfer.files[0];
+    const file = event.dataTransfer.files[0];
     this.importFile(file);
   }
 
   // 将文件导入Modeler
   importFile(file) {
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     // 设定阅读器加载文件时触发的操作
     reader.onload = (event) => {
       // 获取文件的内容（若非xml，下一步会报错并在模板中显示错误信息）
-      let xml = event.target.result;
+      const xml = event.target.result;
       // 以图表方式打开xml
       this.openDiagram(xml);
     };

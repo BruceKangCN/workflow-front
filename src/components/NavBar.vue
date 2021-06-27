@@ -5,6 +5,7 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/process-modeler">Process Modeler</router-link></li>
         <li><router-link to="/decision-modeler">Decision Modeler</router-link></li>
+        <li><router-link to="/form-editor">Form Editor</router-link></li>
       </ul>
     </nav>
   </header>

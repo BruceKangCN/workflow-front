@@ -127,7 +127,7 @@ export default class ProcessModeler extends BaseModeler {
   flex-flow: column;
 }
 
-/* 以下复制自 bpmn-js-examples/properties-panel */
+/* 以下复制自bpmn-js-examples/properties-panel */
 * {
   box-sizing: border-box;
 }
