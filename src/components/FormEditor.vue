@@ -54,8 +54,8 @@
 
 <script>
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// **NOTE.en-US**: this is a **JS module**, because @bpmn-io/form-js is written in js
-// **NOTE.zh-CN**: 这是一个 **JS模块**，因为 @bpmn-io/form-js 是使用 js 编写的
+// **NOTE.en-US**: this is a **JS module**, because file-saver is written in js
+// **NOTE.zh-CN**: 这是一个 **JS模块**，因为 file-saver 是使用 js 编写的
 import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';
 import { FormEditor } from '@bpmn-io/form-js-editor';
