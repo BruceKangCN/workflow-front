@@ -21,16 +21,13 @@ export default class DecisionModeler extends Vue {
   modeler;
   commandStack;
   initialDiagram;
+  mimeType;
+  fileExtension;
 
   // openDiagram捕获到的错误信息，初始为空
   errMsg = '';
   // 拖拽区域状态，初始值为显示提示信息
   state = 'content';
-
-  // 获取流程定义
-  getProcessDefinitions() {
-    return this.modeler.getDefinitions().rootElements[0];
-  }
 
   // 打开新图表，使用异步方式读取内容
   async openDiagram(xml) {
@@ -97,10 +94,10 @@ export default class DecisionModeler extends Vue {
     try {
       // 获取XML文本，不执行格式化
       const {xml} = await this.modeler.saveXML({format: false});
-      // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
-      const blob = new Blob([xml], {type: 'application/bpmn20-xml;charset=utf-8'});
+      // 将文本存入BLOB对象
+      const blob = new Blob([xml], {type: this.mimeType + ';charset=utf-8'});
       // 保存该对象
-      FileSaver.saveAs(blob, this.getProcessDefinitions().id + '.bpmn');
+      FileSaver.saveAs(blob, 'diagram.' + this.fileExtension);
     } catch(err) {
       console.error('Error occured while saving XML: ', err);
     }
@@ -111,10 +108,10 @@ export default class DecisionModeler extends Vue {
     try {
       // 获取SVG文本
       const {svg} = await this.modeler.saveSVG();
-      // 将文本存入BLOB对象，MIME-TYPE为application/bpmn20-xml，编码为UTF-8
-      const blob = new Blob([svg], {type: 'application/bpmn20-xml;charset=utf-8'});
+      // 将文本存入BLOB对象
+      const blob = new Blob([svg], {type: this.mimeType + ';charset=utf-8'});
       // 保存该对象
-      FileSaver.saveAs(blob, this.getProcessDefinitions().id + '.svg');
+      FileSaver.saveAs(blob, 'diagram.svg');
     } catch(err) {
       console.error('Error occured while saving SVG: ', err);
     }
@@ -139,4 +136,5 @@ export default class DecisionModeler extends Vue {
     this.commandStack.redo();
   }
 }
+
 </script>

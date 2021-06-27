@@ -3,8 +3,8 @@
     <!-- 打开文件 -->
     <input
       type="button"
-      value="open diagram"
-      title="open BPMN diagram"
+      :value="'open ' + fileType + ' diagram'"
+      :title="'open ' + fileType + ' diagram'"
       @click="openFileDialog"
     />
     <input
@@ -19,8 +19,8 @@
     <!-- 保存为XML图表 -->
     <input
       type="button"
-      value="BPMN diagram"
-      title="save BPMN diagram"
+      :value="fileType + ' diagram'"
+      :title="'save ' + fileType + ' diagram'"
       @click="$emit('saveXML')"
     />
     <!-- 保存为SVG图片 -->
@@ -34,7 +34,6 @@
     <input type="button" value="<-" title="undo" @click="$emit('undo')" />
     <input type="button" value="->" title="redo" @click="$emit('redo')" />
     <span class="v-splitter"></span>
-    <!-- TODO 实现部署功能 -->
     <!-- 部署 -->
     <input
       type="button"
@@ -49,6 +48,9 @@
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
+  props: [
+    'fileType',
+  ],
   emits: [
     'openDiagramFile',
     'saveXML',

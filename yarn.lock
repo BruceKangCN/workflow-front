@@ -2563,7 +2563,7 @@ camunda-bpmn-moddle@^5.1.2:
   dependencies:
     min-dash "^3.5.2"
 
-camunda-dmn-moddle@^1.0.0:
+camunda-dmn-moddle@^1.0.0, camunda-dmn-moddle@^1.1.0:
   version "1.1.0"
   resolved "https://registry.nlark.com/camunda-dmn-moddle/download/camunda-dmn-moddle-1.1.0.tgz#16c1e72805e634e062850c7b23fe178c897697e0"
   integrity sha1-FsHnKAXmNOBihQx7I/4XjIl2l+A=

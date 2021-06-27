@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO 添加快捷键 -->
   <!-- 组件根节点 -->
   <div
     id="root"
@@ -7,6 +6,7 @@
     <!-- 工具栏 -->
     <ToolBar
       v-show="withDiagram"
+      file-type="BPMN"
       @openDiagramFile="openDiagramFile($event)"
       @saveXML="saveXML"
       @saveSVG="saveSVG"
@@ -79,12 +79,20 @@ import BaseModeler from './common/BaseModeler.vue';
       moddelExtensions: {
         camunda: camundaModdleDescriptor,
       },
+      // 通用设置
+      common: {
+        keyboard: {
+          bindTo: document,
+        },
+      },
     });
     // 指令栈，用于撤销/重做
     this.commandStack = this.modeler.get('commandStack');
   },
 })
 export default class ProcessModeler extends BaseModeler {
+  mimeType = 'application/bpmn20-xml';
+  fileExtension = 'bpmn';
   // 定义初始图表
   initialDiagram = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -102,6 +110,7 @@ export default class ProcessModeler extends BaseModeler {
     '</bpmn:definitions>',
   ].join('\n');
 }
+
 </script>
 
 <style scoped>
@@ -116,15 +125,6 @@ export default class ProcessModeler extends BaseModeler {
   height: 100%;
   display: flex;
   flex-flow: column;
-}
-.tool-bar {
-  width: 100%;
-  border: 1px solid #ccc;
-}
-.v-splitter {
-  /* display: inline-block; */
-  border-left: 3px solid #ccc;
-  margin: 0px 5px;
 }
 
 /* 以下复制自 bpmn-js-examples/properties-panel */
