@@ -1,77 +1,82 @@
 <template>
   <!-- TODO 添加快捷键 -->
-  <!-- 工具栏 -->
-  <div v-show="withDiagram" class="tool-bar">
-    <!-- 打开文件 -->
-    <input
-      type="button"
-      value="open diagram"
-      title="open BPMN diagram"
-      @click="openFileDialog"
-    />
-    <input
-      type="file"
-      id="file-input"
-      @change="openDiagramFile"
-      v-show="false"
-    />
-    <span class="v-splitter"></span>
-    <!-- 保存 -->
-    <span>save</span>
-    <!-- 保存为XML图表 -->
-    <input
-      type="button"
-      value="BPMN diagram"
-      title="save BPMN diagram"
-      @click="saveXML"
-    />
-    <!-- 保存为SVG图片 -->
-    <input
-      type="button"
-      value="SVG image"
-      title="save as SVG image"
-      @click="saveSVG"
-    />
-    <span class="v-splitter"></span>
-    <input type="button" value="<-" title="undo" @click="undo" />
-    <input type="button" value="->" title="redo" @click="redo" />
-    <span class="v-splitter"></span>
-    <!-- TODO 实现部署功能 -->
-    <!-- 部署 -->
-    <input
-      type="button"
-      value="deploy"
-      title="deploy the process"
-      @click="deploy"
-    />
-  </div>
-  <!-- Modeler根节点 -->
+  <!-- 组件根节点 -->
   <div
-    id="modeler-drop-zone"
-    :class="state"
-    @dragover.capture="handelDragOver"
-    @drop.capture="handleFileSelect"
+    id="root"
   >
-    <!-- 欢迎界面 -->
-    <div class="message intro">
-      <div class="note">
-        Drop BPMN diagram from your desktop or <input type="button" @click="openFileDialog" value="open a diagram" /><input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
-      </div>
+    <!-- 工具栏 -->
+    <div v-show="withDiagram" class="tool-bar">
+      <!-- 打开文件 -->
+      <input
+        type="button"
+        value="open diagram"
+        title="open BPMN diagram"
+        @click="openFileDialog"
+      />
+      <input
+        type="file"
+        id="file-input"
+        @change="openDiagramFile"
+        v-show="false"
+      />
+      <span class="v-splitter"></span>
+      <!-- 保存 -->
+      <span>save</span>
+      <!-- 保存为XML图表 -->
+      <input
+        type="button"
+        value="BPMN diagram"
+        title="save BPMN diagram"
+        @click="saveXML"
+      />
+      <!-- 保存为SVG图片 -->
+      <input
+        type="button"
+        value="SVG image"
+        title="save as SVG image"
+        @click="saveSVG"
+      />
+      <span class="v-splitter"></span>
+      <input type="button" value="<-" title="undo" @click="undo" />
+      <input type="button" value="->" title="redo" @click="redo" />
+      <span class="v-splitter"></span>
+      <!-- TODO 实现部署功能 -->
+      <!-- 部署 -->
+      <input
+        type="button"
+        value="deploy"
+        title="deploy the process"
+        @click="deploy"
+      />
     </div>
-    <!-- 错误信息界面 -->
-    <div class="message error">
-      <div class="note">
-        <p>Oops, we could not display the BPMN 2.0 diagram!</p>
-        <div class="detarls">
-          <span>Import Error Details</span>
-          <pre>{{ errMsg }}</pre>
+    <!-- Modeler根节点 -->
+    <div
+      id="modeler-drop-zone"
+      :class="state"
+      @dragover.capture="handelDragOver"
+      @drop.capture="handleFileSelect"
+    >
+      <!-- 欢迎界面 -->
+      <div class="message intro">
+        <div class="note">
+          Drop BPMN diagram from your desktop or <input type="button" @click="openFileDialog" value="open a diagram" /><input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
         </div>
       </div>
+      <!-- 错误信息界面 -->
+      <div class="message error">
+        <div class="note">
+          <p>Oops, we could not display the BPMN 2.0 diagram!</p>
+          <div class="detarls">
+            <span>Import Error Details</span>
+            <pre>{{ errMsg }}</pre>
+          </div>
+        </div>
+      </div>
+      <!-- 画布 -->
+      <div id="modeler-canvas" class="canvas"></div>
+      <!-- 属性面板 -->
+      <div id="modeler-properties-panel" class="properties-panel-parent"></div>
     </div>
-    <!-- 画布 -->
-    <div id="modeler-canvas" class="canvas"></div>
-    <!-- 属性面板 -->
-    <div id="modeler-properties-panel" class="properties-panel-parent"></div>
   </div>
 </template>
 
@@ -290,6 +295,12 @@ export default class ProcessModeler extends Vue {
 @import '../assets/vendor/bpmn-js-properties-panel/assets/bpmn-js-properties-panel.css';
 
 /* 自定义样式 */
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
 .tool-bar {
   width: 100%;
   border: 1px solid #ccc;
