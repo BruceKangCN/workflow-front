@@ -5,50 +5,15 @@
     id="root"
   >
     <!-- 工具栏 -->
-    <div v-show="withDiagram" class="tool-bar">
-      <!-- 打开文件 -->
-      <input
-        type="button"
-        value="open diagram"
-        title="open BPMN diagram"
-        @click="openFileDialog"
-      />
-      <input
-        type="file"
-        id="file-input"
-        @change="openDiagramFile"
-        v-show="false"
-      />
-      <span class="v-splitter"></span>
-      <!-- 保存 -->
-      <span>save</span>
-      <!-- 保存为XML图表 -->
-      <input
-        type="button"
-        value="BPMN diagram"
-        title="save BPMN diagram"
-        @click="saveXML"
-      />
-      <!-- 保存为SVG图片 -->
-      <input
-        type="button"
-        value="SVG image"
-        title="save as SVG image"
-        @click="saveSVG"
-      />
-      <span class="v-splitter"></span>
-      <input type="button" value="<-" title="undo" @click="undo" />
-      <input type="button" value="->" title="redo" @click="redo" />
-      <span class="v-splitter"></span>
-      <!-- TODO 实现部署功能 -->
-      <!-- 部署 -->
-      <input
-        type="button"
-        value="deploy"
-        title="deploy the process"
-        @click="deploy"
-      />
-    </div>
+    <ToolBar
+      v-show="withDiagram"
+      @openDiagramFile="openDiagramFile($event)"
+      @saveXML="saveXML"
+      @saveSVG="saveSVG"
+      @undo="undo"
+      @redo="redo"
+      @deploy="deploy"
+    />
     <!-- Modeler根节点 -->
     <div
       id="modeler-drop-zone"
@@ -59,7 +24,7 @@
       <!-- 欢迎界面 -->
       <div class="message intro">
         <div class="note">
-          Drop BPMN diagram from your desktop or <input type="button" @click="openFileDialog" value="open a diagram" /><input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
+          Drop BPMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
         </div>
       </div>
       <!-- 错误信息界面 -->
@@ -93,7 +58,12 @@ import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
 
 import FileSaver from 'file-saver';
 
+import ToolBar from './common/ToolBar.vue';
+
 @Options({
+  components: {
+    ToolBar,
+  },
   computed: {
     // 判断当前是否存在图表
     withDiagram() {
@@ -168,15 +138,8 @@ export default class ProcessModeler extends Vue {
     }
   }
 
-  // 打开文件对话框
-  openFileDialog() {
-    document.querySelector('#file-input').click();
-  }
-
   // 打开图表文件
-  openDiagramFile(event) {
-    // 只获取第一个文件
-    const file = event.target.files[0];
+  openDiagramFile(file) {
     this.importFile(file);
   }
 
