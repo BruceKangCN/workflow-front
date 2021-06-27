@@ -76,7 +76,7 @@ import BaseModeler from './common/BaseModeler.vue';
         propertiesProviderModule,
       ],
       // moddle扩展
-      moddelExtensions: {
+      moddleExtensions: {
         camunda: camundaModdleDescriptor,
       },
       // 通用设置
