@@ -2563,6 +2563,13 @@ camunda-bpmn-moddle@^5.1.2:
   dependencies:
     min-dash "^3.5.2"
 
+camunda-dmn-moddle@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.nlark.com/camunda-dmn-moddle/download/camunda-dmn-moddle-1.1.0.tgz#16c1e72805e634e062850c7b23fe178c897697e0"
+  integrity sha1-FsHnKAXmNOBihQx7I/4XjIl2l+A=
+  dependencies:
+    min-dash "^3.0.0"
+
 caniuse-api@^3.0.0:
   version "3.0.0"
   resolved "https://registry.nlark.com/caniuse-api/download/caniuse-api-3.0.0.tgz#5e4d90e2274961d46291997df599e3ed008ee4c0"
@@ -2875,6 +2882,16 @@ component-event@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npm.taobao.org/component-event/download/component-event-0.1.4.tgz#3de78fc28782381787e24bf2a7c536bf0142c9b4"
   integrity sha1-PeePwoeCOBeH4kvyp8U2vwFCybQ=
+
+component-props@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/component-props/download/component-props-1.1.1.tgz#f9b7df9b9927b6e6d97c9bd272aa867670f34944"
+  integrity sha1-+bffm5kntubZfJvScqqGdnDzSUQ=
+
+component-xor@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npm.taobao.org/component-xor/download/component-xor-0.0.4.tgz#c55d83ccc1b94cd5089a4e93fa7891c7263e59aa"
+  integrity sha1-xV2DzMG5TNUImk6T+niRxyY+Wao=
 
 compressible@~2.0.16:
   version "2.0.18"
@@ -3471,7 +3488,7 @@ diagram-js-direct-editing@^1.6.3:
     min-dash "^3.5.2"
     min-dom "^3.1.3"
 
-diagram-js@^7.3.0:
+diagram-js@^7.2.0, diagram-js@^7.3.0:
   version "7.3.0"
   resolved "https://registry.nlark.com/diagram-js/download/diagram-js-7.3.0.tgz#cea20d479df87d0311ad56337f3c99d084ebcd37"
   integrity sha1-zqINR534fQMRrVYzfzyZ0ITrzTc=
@@ -3519,6 +3536,95 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+dmn-js-decision-table@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.nlark.com/dmn-js-decision-table/download/dmn-js-decision-table-11.0.1.tgz#9d13f38c32342e4b0f97ca743e1e5a6f5b2cd46b"
+  integrity sha1-nRPzjDI0LksPl8p0Ph5ab1ss1Gs=
+  dependencies:
+    css.escape "^1.5.1"
+    diagram-js "^7.2.0"
+    dmn-js-shared "^11.0.0"
+    escape-html "^1.0.3"
+    inferno "~5.6.2"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
+    selection-ranges "^3.0.2"
+    table-js "^7.1.0"
+
+dmn-js-drd@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.nlark.com/dmn-js-drd/download/dmn-js-drd-11.0.1.tgz#c8f7bd0fe7366526ce1320f90f9d3fc9bcf97eca"
+  integrity sha1-yPe9D+c2ZSbOEyD5D50/ybz5fso=
+  dependencies:
+    diagram-js "^7.2.0"
+    diagram-js-direct-editing "^1.6.3"
+    dmn-js-shared "^11.0.0"
+    inherits "^2.0.1"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
+    object-refs "^0.3.0"
+    tiny-svg "^2.2.1"
+
+dmn-js-literal-expression@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.nlark.com/dmn-js-literal-expression/download/dmn-js-literal-expression-11.0.1.tgz#a34b1192320d0aa94f12ed80b174563ed6ff3eb8"
+  integrity sha1-o0sRkjINCqlPEu2AsXRWPtb/Prg=
+  dependencies:
+    diagram-js "^7.2.0"
+    dmn-js-shared "^11.0.0"
+    escape-html "^1.0.3"
+    inferno "~5.6.2"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
+    table-js "^7.1.0"
+
+dmn-js-properties-panel@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.nlark.com/dmn-js-properties-panel/download/dmn-js-properties-panel-0.6.1.tgz#008778f0590feafe9ff65153e00b14ddc8a68061"
+  integrity sha1-AId48FkP6v6f9lFT4AsU3cimgGE=
+  dependencies:
+    ids "^1.0.0"
+    inherits "^2.0.1"
+    lodash "^4.17.10"
+    min-dom "^3.1.1"
+    scroll-tabs "^1.0.1"
+    selection-update "^0.1.2"
+
+dmn-js-shared@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.nlark.com/dmn-js-shared/download/dmn-js-shared-11.0.0.tgz#5a41b86c2ac287721ae052f435626b000b899313"
+  integrity sha1-WkG4bCrCh3Ia4FL0NWJrAAuJkxM=
+  dependencies:
+    camunda-dmn-moddle "^1.0.0"
+    diagram-js "^7.2.0"
+    dmn-moddle "^10.0.0"
+    ids "^0.2.0"
+    inferno "~5.6.2"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
+    selection-ranges "^3.0.2"
+    selection-update "^0.1.2"
+    table-js "^7.1.0"
+
+dmn-js@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.nlark.com/dmn-js/download/dmn-js-11.0.1.tgz#875c3979edc49f90a454835166ad83694b9febba"
+  integrity sha1-h1w5ee3En5CkVINRZq2DaUuf67o=
+  dependencies:
+    dmn-js-decision-table "^11.0.1"
+    dmn-js-drd "^11.0.1"
+    dmn-js-literal-expression "^11.0.1"
+    dmn-js-shared "^11.0.0"
+
+dmn-moddle@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.nlark.com/dmn-moddle/download/dmn-moddle-10.0.0.tgz#dadabfac6b6efb2d94ae328ba5ed2a840639d632"
+  integrity sha1-2tq/rGtu+y2UrjKLpe0qhAY51jI=
+  dependencies:
+    min-dash "^3.0.0"
+    moddle "^5.0.1"
+    moddle-xml "^9.0.5"
+
 dns-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/dns-equal/download/dns-equal-1.0.0.tgz#b39e7f1da6eb0a75ba9c17324b34753c47e0654d"
@@ -3552,6 +3658,14 @@ dom-converter@^0.2.0:
   integrity sha1-ZyGp2u4uKTaClVtq/kFncWJ7t2g=
   dependencies:
     utila "~0.4"
+
+dom-iterator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/dom-iterator/download/dom-iterator-1.0.0.tgz#9c09899846ec41c2d257adc4d6015e4759ef05ad"
+  integrity sha1-nAmJmEbsQcLSV63E1gFeR1nvBa0=
+  dependencies:
+    component-props "1.1.1"
+    component-xor "0.0.4"
 
 dom-serializer@0:
   version "0.2.2"
@@ -3790,7 +3904,7 @@ escalade@^3.1.1:
   resolved "https://registry.npm.taobao.org/escalade/download/escalade-3.1.1.tgz?cache=0&sync_timestamp=1602567261690&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fescalade%2Fdownload%2Fescalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha1-2M/ccACWXFoBdLSoLqpcBVJ0LkA=
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.nlark.com/escape-html/download/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
@@ -4755,6 +4869,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hat@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npm.taobao.org/hat/download/hat-0.0.3.tgz#bb014a9e64b3788aed8005917413d4ff3d502d8a"
+  integrity sha1-uwFKnmSzeIrtgAWRdBPU/z1QLYo=
+
 he@1.2.x:
   version "1.2.0"
   resolved "https://registry.nlark.com/he/download/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -4975,6 +5094,13 @@ icss-utils@^5.0.0:
   resolved "https://registry.npm.taobao.org/icss-utils/download/icss-utils-5.1.0.tgz?cache=0&sync_timestamp=1605801312995&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ficss-utils%2Fdownload%2Ficss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
   integrity sha1-xr5oWKvQE9do6YNmrkfiXViHsa4=
 
+ids@^0.2.0:
+  version "0.2.2"
+  resolved "https://registry.npm.taobao.org/ids/download/ids-0.2.2.tgz#c23140dd06f5e5e95b1a5e5e98877ea734965540"
+  integrity sha1-wjFA3Qb15elbGl5emId+pzSWVUA=
+  dependencies:
+    hat "^0.0.3"
+
 ids@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/ids/download/ids-1.0.0.tgz#df67f2d37b81d7c2effc87e03d17ebff95a58c05"
@@ -5067,6 +5193,25 @@ infer-owner@^1.0.3:
   version "1.0.4"
   resolved "https://registry.npm.taobao.org/infer-owner/download/infer-owner-1.0.4.tgz#c4cefcaa8e51051c2a40ba2ce8a3d27295af9467"
   integrity sha1-xM78qo5RBRwqQLos6KPScpWvlGc=
+
+inferno-shared@5.6.1:
+  version "5.6.1"
+  resolved "https://registry.nlark.com/inferno-shared/download/inferno-shared-5.6.1.tgz#5c5e471dbff72eb9f1768f97510a32e5fa76b6dd"
+  integrity sha1-XF5HHb/3Lrnxdo+XUQoy5fp2tt0=
+
+inferno-vnode-flags@5.6.1:
+  version "5.6.1"
+  resolved "https://registry.nlark.com/inferno-vnode-flags/download/inferno-vnode-flags-5.6.1.tgz#43974687cc54f22c24ecee116376f6c1bd697499"
+  integrity sha1-Q5dGh8xU8iwk7O4RY3b2wb1pdJk=
+
+inferno@~5.6.2:
+  version "5.6.2"
+  resolved "https://registry.nlark.com/inferno/download/inferno-5.6.2.tgz#a256a9de063287fb18d09525a85467cbd6c5b47a"
+  integrity sha1-olap3gYyh/sY0JUlqFRny9bFtHo=
+  dependencies:
+    inferno-shared "5.6.1"
+    inferno-vnode-flags "5.6.1"
+    opencollective-postinstall "^2.0.3"
 
 inflight@^1.0.4:
   version "1.0.6"
@@ -5781,7 +5926,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.npm.taobao.org/lodash.uniq/download/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3:
   version "4.17.21"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
@@ -6015,7 +6160,7 @@ min-dash@^3.0.0, min-dash@^3.1.0, min-dash@^3.5.2, min-dash@^3.7.0:
   resolved "https://registry.npm.taobao.org/min-dash/download/min-dash-3.7.0.tgz#d7f510ddfe0087e63a79e6f0a4db6086958fd9fc"
   integrity sha1-1/UQ3f4Ah+Y6eebwpNtghpWP2fw=
 
-min-dom@^3.1.0, min-dom@^3.1.3:
+min-dom@^3.1.0, min-dom@^3.1.1, min-dom@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npm.taobao.org/min-dom/download/min-dom-3.1.3.tgz#6d3f4092439c80d13df52ac98d6a7d5fe92bfdbd"
   integrity sha1-bT9AkkOcgNE99SrJjWp9X+kr/b0=
@@ -6109,7 +6254,7 @@ moddle-xml@^9.0.5:
     moddle "^5.0.2"
     saxen "^8.1.2"
 
-moddle@^5.0.2:
+moddle@^5.0.1, moddle@^5.0.2:
   version "5.0.2"
   resolved "https://registry.npm.taobao.org/moddle/download/moddle-5.0.2.tgz#9768320698be636711a29101c82fd361e3d90253"
   integrity sha1-l2gyBpi+Y2cRopEByC/TYePZAlM=
@@ -6499,6 +6644,11 @@ open@^6.3.0:
   integrity sha1-XBPpbQ3IlGhhZPGJZez+iJ7PyKk=
   dependencies:
     is-wsl "^1.1.0"
+
+opencollective-postinstall@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/opencollective-postinstall/download/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
+  integrity sha1-eg//l49tv6TQBiOPusmO1BmMMlk=
 
 opener@^1.5.1:
   version "1.5.2"
@@ -7815,6 +7965,13 @@ select-hose@^2.0.0:
   resolved "https://registry.npm.taobao.org/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   integrity sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
 
+selection-ranges@^3.0.2, selection-ranges@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npm.taobao.org/selection-ranges/download/selection-ranges-3.0.3.tgz#7f346169d606b76e28e0fa721a115eb6efe97be1"
+  integrity sha1-fzRhadYGt24o4PpyGhFetu/pe+E=
+  dependencies:
+    dom-iterator "^1.0.0"
+
 selection-update@^0.1.2:
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/selection-update/download/selection-update-0.1.2.tgz#803a044dcc6edab5a3ae648f5f0357e89ad66b96"
@@ -8431,6 +8588,17 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+table-js@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.npm.taobao.org/table-js/download/table-js-7.1.0.tgz#c280efb6a8f5400bc58f75c057de8f473485a6e4"
+  integrity sha1-woDvtqj1QAvFj3XAV96PRzSFpuQ=
+  dependencies:
+    didi "^5.2.1"
+    ids "^1.0.0"
+    min-dash "^3.5.2"
+    min-dom "^3.1.3"
+    selection-ranges "^3.0.3"
+
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.nlark.com/table/download/table-5.4.6.tgz?cache=0&sync_timestamp=1620957183690&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftable%2Fdownload%2Ftable-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
@@ -8528,7 +8696,7 @@ timsort@^0.3.0:
   resolved "https://registry.npm.taobao.org/timsort/download/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tiny-svg@^2.2.2:
+tiny-svg@^2.2.1, tiny-svg@^2.2.2:
   version "2.2.2"
   resolved "https://registry.npm.taobao.org/tiny-svg/download/tiny-svg-2.2.2.tgz#9d9825c2e0ccb5e259bb1ae7d7ac79194e086657"
   integrity sha1-nZglwuDMteJZuxrn16x5GU4IZlc=

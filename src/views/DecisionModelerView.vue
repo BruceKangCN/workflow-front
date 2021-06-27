@@ -1,15 +1,15 @@
 <template>
-  <h2>Process Modeler</h2>
-  <ProcessModeler />
+  <h2>Decision Modeler</h2>
+  <DecisionModeler />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import ProcessModeler from '../components/ProcessModeler.vue';
+import DecisionModeler from '../components/DecisionModeler.vue';
 
 @Options({
   components: {
-    ProcessModeler,
+    DecisionModeler,
   },
   // 导航守卫，当用户切换界面时弹窗确认
   beforeRouteLeave(to, from, next) {
@@ -20,5 +20,5 @@ import ProcessModeler from '../components/ProcessModeler.vue';
     }
   },
 })
-export default class ProcessModelerView extends Vue {}
+export default class DecisionModelerView extends Vue {}
 </script>

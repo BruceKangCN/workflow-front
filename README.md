@@ -1,4 +1,4 @@
-# workflow-front-ts
+# workflow-front
 
 ## Project setup
 ```
