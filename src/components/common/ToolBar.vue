@@ -55,7 +55,7 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class ToolBar extends Vue {
   // 打开文件对话框
-  openFileDialog(): void {
+  public openFileDialog(): void {
     document.querySelector<HTMLElement>('#file-input')?.click();
   }
 }
