@@ -34,13 +34,7 @@
     <input type="button" value="<-" title="undo" @click="$emit('undo')" />
     <input type="button" value="->" title="redo" @click="$emit('redo')" />
     <span class="v-splitter"></span>
-    <!-- 部署 -->
-    <input
-      type="button"
-      value="deploy"
-      title="deploy the process"
-      @click="$emit('deploy')"
-    />
+    <slot></slot>
   </div>
 </template>
 
@@ -57,7 +51,6 @@ import { Options, Vue } from 'vue-class-component';
     'saveSVG',
     'undo',
     'redo',
-    'deploy',
   ],
 })
 export default class ToolBar extends Vue {

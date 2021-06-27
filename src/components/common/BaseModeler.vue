@@ -117,15 +117,6 @@ export default class DecisionModeler extends Vue {
     }
   }
 
-  // TODO 实现部署功能
-  // 部署流程到工作流引擎
-  async deploy() {
-    const {xml} = await this.modeler.saveXML({format: false});
-    console.log('prepare to deploy: ' + xml);
-    console.warn('but this method is not implemented yet!');
-    alert('not implement yet!');
-  }
-
   // 撤销
   undo() {
     this.commandStack.undo();

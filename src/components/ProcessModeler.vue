@@ -12,8 +12,15 @@
       @saveSVG="saveSVG"
       @undo="undo"
       @redo="redo"
-      @deploy="deploy"
-    />
+    >
+      <!-- 部署 -->
+      <input
+        type="button"
+        value="deploy"
+        title="deploy the process"
+        @click="deploy"
+      />
+    </ToolBar>
     <!-- Modeler根节点 -->
     <div
       id="modeler-drop-zone"
@@ -109,6 +116,15 @@ export default class ProcessModeler extends BaseModeler {
     '  </bpmndi:BPMNDiagram>',
     '</bpmn:definitions>',
   ].join('\n');
+
+  // TODO 实现部署功能
+  // 部署流程到工作流引擎
+  async deploy() {
+    const {xml} = await this.modeler.saveXML({format: false});
+    console.log('prepare to deploy: ' + xml);
+    console.warn('but this method is not implemented yet!');
+    alert('not implement yet!');
+  }
 }
 
 </script>

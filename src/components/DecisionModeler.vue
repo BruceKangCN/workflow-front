@@ -12,7 +12,6 @@
       @saveSVG="saveSVG"
       @undo="undo"
       @redo="redo"
-      @deploy="deploy"
     />
     <!-- Modeler根节点 -->
     <div
@@ -66,18 +65,22 @@ import BaseModeler from './common/BaseModeler.vue';
       container: document.querySelector('#modeler-canvas'),
       // Decision Requirements Diagram，决策需求图表
       drd: {
+        // 属性面板
         propertiesPanel: {
           parent: document.querySelector('#modeler-properties-panel'),
         },
+        // 附加模组
         additionalModules: [
           propertiesPanelModule,
           propertiesProviderModule,
           drdAeapterModule,
         ],
       },
+      // moddle扩展
       moddleExtensions: {
         camunda: camundaModdleDescriptor,
       },
+      // 通用设置
       common: {
         keyboard: {
           bindTo: document,
