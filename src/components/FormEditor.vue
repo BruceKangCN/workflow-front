@@ -1,12 +1,28 @@
 <template>
   <!-- 组件根节点 -->
   <div id="root">
-    <input
-      type="button"
-      value="save form"
-      @click="saveSchema"
-      v-show="withSchema"
-    />
+    <!-- 工具栏 -->
+    <div v-show="withSchema">
+      <!-- 打开表单 -->
+      <input
+        type="button"
+        value="open form"
+        title="open form"
+        @click="openFileDialog"
+      />
+      <input
+        type="file"
+        id="file-input"
+        @change="importFile($event.target.files[0])"
+        v-show="false"
+      />
+      <!-- 保存表单 -->
+      <input
+        type="button"
+        value="save form"
+        @click="saveSchema"
+      />
+    </div>
     <!-- Editor根节点 -->
     <div
       id="modeler-drop-zone"
@@ -131,11 +147,16 @@ export default class CustomFormEditor extends Vue {
       console.error('Error occured while saving form: ', err);
     }
   }
+
+  // 打开文件对话框
+  openFileDialog() {
+    document.querySelector('#file-input').click();
+  }
 }
 </script>
 
 <style scoped>
-/* form-js内置样式 */
+/* @bpmn-io/form-js内置样式 */
 @import '~@bpmn-io/form-js/dist/assets/form-js.css';
 @import '~@bpmn-io/form-js/dist/assets/form-js-editor.css';
 @import '~@bpmn-io/form-js/dist/assets/dragula.css';
