@@ -90,7 +90,7 @@ interface ISchema {
 })
 export default class CustomFormEditor extends Vue {
   private formEditor?: FormEditor ;
-  private initialSchema = { type: 'default', components: [] };
+  private initialSchema: ISchema = { type: 'default', components: [] };
 
   // openDiagram捕获到的错误信息，初始为空
   private errMsg = '';
