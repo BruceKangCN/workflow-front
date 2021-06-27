@@ -97,12 +97,12 @@ export default class CustomFormEditor extends Vue {
   // 拖拽区域状态，初始值为显示提示信息
   private state = 'content';
 
-  async createNewForm(): Promise<void> {
+  public async createNewForm(): Promise<void> {
     await this.openSchema(this.initialSchema);
   }
 
   // 打开新表单，使用异步方式读取内容
-  async openSchema(schema: ISchema): Promise<void> {
+  protected async openSchema(schema: ISchema): Promise<void> {
     try {
       await this.formEditor?.importSchema(schema);
       this.state = 'content with-schema';
@@ -114,7 +114,7 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 处理拖拽事件
-  handelDragOver(event: DragEvent): void {
+  public handelDragOver(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
     event.preventDefault();
@@ -124,7 +124,7 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 处理释放事件
-  handleFileSelect(event: DragEvent): void {
+  public handleFileSelect(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
     event.preventDefault();
@@ -135,7 +135,7 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 将文件导入Editor
-  importFile(file: File): void {
+  public importFile(file: File): void {
     const reader = new FileReader();
 
     // 设定阅读器加载文件时触发的操作
@@ -151,7 +151,7 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 保存表单
-  saveSchema(): void {
+  public saveSchema(): void {
     try {
       // 获取JSON文本
       const json = JSON.stringify(this.formEditor?.saveSchema());
@@ -165,7 +165,7 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 打开文件对话框
-  openFileDialog(): void {
+  public openFileDialog(): void {
     document.querySelector<HTMLElement>('#file-input')?.click();
   }
 }
