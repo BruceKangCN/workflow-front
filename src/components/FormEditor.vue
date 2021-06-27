@@ -69,8 +69,14 @@ interface IComponent {
   values?: IValue[]
 }
 
+interface IExporter {
+  name: string,
+  version?: string | number,
+}
+
 interface ISchema {
   schemaVersin?: number,
+  exporter?: IExporter,
   type: string,
   components: IComponent[],
 }
