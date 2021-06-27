@@ -52,13 +52,28 @@
   </div>
 </template>
 
-<script>
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// **NOTE.en-US**: this is a **JS module**, because file-saver is written in js
-// **NOTE.zh-CN**: 这是一个 **JS模块**，因为 file-saver 是使用 js 编写的
+<script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';
 import { FormEditor } from '@bpmn-io/form-js-editor';
+
+interface IValue {
+  label: string,
+  value: string,
+}
+
+interface IComponent {
+  key: string,
+  label: string,
+  type: string,
+  values?: IValue[]
+}
+
+interface ISchema {
+  schemaVersin?: number,
+  type: string,
+  components: IComponent[],
+}
 
 @Options({
   computed: {
@@ -69,27 +84,27 @@ import { FormEditor } from '@bpmn-io/form-js-editor';
   },
   mounted() {
     this.formEditor = new FormEditor({
-      container: document.querySelector('#form-editor'),
+      container: document.querySelector('#form-editor') || '#form-editor',
     });
   },
 })
 export default class CustomFormEditor extends Vue {
-  formEditor;
-  initialSchema = { type: 'default', components: [] };
+  private formEditor?: FormEditor ;
+  private initialSchema = { type: 'default', components: [] };
 
   // openDiagram捕获到的错误信息，初始为空
-  errMsg = '';
+  private errMsg = '';
   // 拖拽区域状态，初始值为显示提示信息
-  state = 'content';
+  private state = 'content';
 
-  async createNewForm() {
+  async createNewForm(): Promise<void> {
     await this.openSchema(this.initialSchema);
   }
 
   // 打开新表单，使用异步方式读取内容
-  async openSchema(schema) {
+  async openSchema(schema: ISchema): Promise<void> {
     try {
-      await this.formEditor.importSchema(schema);
+      await this.formEditor?.importSchema(schema);
       this.state = 'content with-schema';
     } catch (err) {
       this.state = 'content with-error';
@@ -99,34 +114,34 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 处理拖拽事件
-  handelDragOver(event) {
+  handelDragOver(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
     event.preventDefault();
 
     // 显式显示这是一次复制
-    event.dataTransfer.dropEffect = 'copy';
+    event.dataTransfer!.dropEffect = 'copy';
   }
 
   // 处理释放事件
-  handleFileSelect(event) {
+  handleFileSelect(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
     event.preventDefault();
 
     // 只获取第一个文件
-    const file = event.dataTransfer.files[0];
-    this.importFile(file);
+    const file = event.dataTransfer?.files[0];
+    this.importFile(file!);
   }
 
   // 将文件导入Editor
-  importFile(file) {
+  importFile(file: File): void {
     const reader = new FileReader();
 
     // 设定阅读器加载文件时触发的操作
-    reader.onload = (event) => {
+    reader.onload = (event: ProgressEvent<FileReader>) => {
       // 获取文件的内容（若非schema，下一步会报错并在模板中显示错误信息）
-      const schema = JSON.parse(event.target.result);
+      const schema = JSON.parse(event.target?.result as string);
       // 导入schema
       this.openSchema(schema);
     };
@@ -135,10 +150,11 @@ export default class CustomFormEditor extends Vue {
     reader.readAsText(file);
   }
 
-  saveSchema() {
+  // 保存表单
+  saveSchema(): void {
     try {
       // 获取JSON文本
-      const json = JSON.stringify(this.formEditor.saveSchema());
+      const json = JSON.stringify(this.formEditor?.saveSchema());
       // 将文本存入BLOB对象
       const blob = new Blob([json], {type: 'application/form-schema;charset=utf-8'});
       // 保存该对象
@@ -149,8 +165,8 @@ export default class CustomFormEditor extends Vue {
   }
 
   // 打开文件对话框
-  openFileDialog() {
-    document.querySelector('#file-input').click();
+  openFileDialog(): void {
+    document.querySelector<HTMLElement>('#file-input')?.click();
   }
 }
 </script>
