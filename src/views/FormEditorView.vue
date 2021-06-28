@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import FormEditor from '../components/FormEditor.vue';
+import FormEditor from '@/components/FormEditor.vue';
 
 @Options({
   components: {

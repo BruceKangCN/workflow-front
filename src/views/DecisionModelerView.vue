@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import DecisionModeler from '../components/DecisionModeler.vue';
+import DecisionModeler from '@/components/DecisionModeler.vue';
 
 @Options({
   components: {

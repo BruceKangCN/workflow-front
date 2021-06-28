@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import ProcessModeler from '../components/ProcessModeler.vue';
+import ProcessModeler from '@/components/ProcessModeler.vue';
 
 @Options({
   components: {
