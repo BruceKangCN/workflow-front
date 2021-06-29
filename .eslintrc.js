@@ -15,7 +15,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-tabs': ['error'],
-    'indent': ['warn', 2],
+    'indent': 'off', // use @typescript-eslint/indent instead in typescript!
     'semi': ['warn', 'always'],
     'comma-dangle': ['warn', 'always-multiline'],
     'quotes': ['warn', 'single'],
@@ -27,6 +27,7 @@ module.exports = {
       ignoreStrings: true,
       ignoreRegExpLiterals: true,
     }],
+    '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };
