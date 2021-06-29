@@ -56,30 +56,7 @@
 import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';
 import { FormEditor } from '@bpmn-io/form-js-editor';
-
-interface IValue {
-  label: string,
-  value: string,
-}
-
-interface IComponent {
-  key: string,
-  label: string,
-  type: string,
-  values?: IValue[]
-}
-
-interface IExporter {
-  name: string,
-  version?: string | number,
-}
-
-interface ISchema {
-  schemaVersin?: number,
-  exporter?: IExporter,
-  type: string,
-  components: IComponent[],
-}
+import { ISchema } from '@/lib/ISchema';
 
 @Options({
   computed: {
