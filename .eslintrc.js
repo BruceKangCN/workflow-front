@@ -18,6 +18,7 @@ module.exports = {
     'semi': ['warn', 'always'],
     'comma-dangle': ['warn', 'always-multiline'],
     'quotes': ['warn', 'single'],
+    'max-len': ['warn', { code: 80, tabWidth: 2 }],
     '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };
