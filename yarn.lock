@@ -955,6 +955,15 @@
   resolved "https://registry.npm.taobao.org/@camunda/element-templates-json-schema/download/@camunda/element-templates-json-schema-0.3.1.tgz#789fdfb11d063f3dc255600d572997ef8fbead2d"
   integrity sha1-eJ/fsR0GPz3CVWANVymX74++rS0=
 
+"@es-joy/jsdoccomment@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.nlark.com/@es-joy/jsdoccomment/download/@es-joy/jsdoccomment-0.8.0.tgz#1add451f50f57597676ab85ee7bd0a273d7b7c43"
+  integrity sha1-Gt1FH1D1dZdnarhe570KJz17fEM=
+  dependencies:
+    comment-parser "^1.1.5"
+    esquery "^1.4.0"
+    jsdoc-type-pratt-parser "1.0.4"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.npm.taobao.org/@hapi/address/download/@hapi/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -2914,6 +2923,11 @@ commander@~2.19.0:
   resolved "https://registry.nlark.com/commander/download/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
   integrity sha1-9hmKqE5bg8RgVLlN3tv+1e6f8So=
 
+comment-parser@1.1.5, comment-parser@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.nlark.com/comment-parser/download/comment-parser-1.1.5.tgz?cache=0&sync_timestamp=1619083444312&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcomment-parser%2Fdownload%2Fcomment-parser-1.1.5.tgz#453627ef8f67dbcec44e79a9bd5baa37f0bce9b2"
+  integrity sha1-RTYn749n287ETnmpvVuqN/C86bI=
+
 commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/commondir/download/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
@@ -3998,6 +4012,21 @@ eslint-loader@^2.2.1:
     object-assign "^4.0.1"
     object-hash "^1.1.4"
     rimraf "^2.6.1"
+
+eslint-plugin-jsdoc@^35.4.1:
+  version "35.4.1"
+  resolved "https://registry.nlark.com/eslint-plugin-jsdoc/download/eslint-plugin-jsdoc-35.4.1.tgz?cache=0&sync_timestamp=1624929417403&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-plugin-jsdoc%2Fdownload%2Feslint-plugin-jsdoc-35.4.1.tgz#7fb2a8c9bd8e304ab1feee48aa34544df5f79839"
+  integrity sha1-f7Koyb2OMEqx/u5IqjRUTfX3mDk=
+  dependencies:
+    "@es-joy/jsdoccomment" "^0.8.0"
+    comment-parser "1.1.5"
+    debug "^4.3.1"
+    esquery "^1.4.0"
+    jsdoc-type-pratt-parser "^1.0.4"
+    lodash "^4.17.21"
+    regextras "^0.8.0"
+    semver "^7.3.5"
+    spdx-expression-parse "^3.0.1"
 
 eslint-plugin-vue@^7.0.0:
   version "7.11.1"
@@ -5734,6 +5763,11 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.nlark.com/jsbn/download/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
+
+jsdoc-type-pratt-parser@1.0.4, jsdoc-type-pratt-parser@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.nlark.com/jsdoc-type-pratt-parser/download/jsdoc-type-pratt-parser-1.0.4.tgz#5750d2d32ffb001866537d3baaedea7cf84c7036"
+  integrity sha1-V1DS0y/7ABhmU307qu3qfPhMcDY=
 
 jsesc@^2.5.1:
   version "2.5.2"
@@ -7773,6 +7807,11 @@ regexpu-core@^4.7.1:
     unicode-match-property-ecmascript "^1.0.4"
     unicode-match-property-value-ecmascript "^1.2.0"
 
+regextras@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.nlark.com/regextras/download/regextras-0.8.0.tgz#ec0f99853d4912839321172f608b544814b02217"
+  integrity sha1-7A+ZhT1JEoOTIRcvYItUSBSwIhc=
+
 regjsgen@^0.5.1:
   version "0.5.2"
   resolved "https://registry.npm.taobao.org/regjsgen/download/regjsgen-0.5.2.tgz#92ff295fb1deecbf6ecdab2543d207e91aa33733"
@@ -8372,7 +8411,7 @@ spdx-exceptions@^2.1.0:
   resolved "https://registry.npm.taobao.org/spdx-exceptions/download/spdx-exceptions-2.3.0.tgz#3f28ce1a77a00372683eade4a433183527a2163d"
   integrity sha1-PyjOGnegA3JoPq3kpDMYNSeiFj0=
 
-spdx-expression-parse@^3.0.0:
+spdx-expression-parse@^3.0.0, spdx-expression-parse@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/spdx-expression-parse/download/spdx-expression-parse-3.0.1.tgz#cf70f50482eefdc98e3ce0a6833e4a53ceeba679"
   integrity sha1-z3D1BILu/cmOPOCmgz5KU87rpnk=

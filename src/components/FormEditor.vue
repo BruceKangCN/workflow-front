@@ -59,10 +59,23 @@ import FileSaver from 'file-saver';
 import { FormEditor } from '@bpmn-io/form-js-editor';
 import { ISchema } from '@/lib/ISchema';
 
+/**
+ * 表单编辑器
+ *
+ * @property {FormEditor} formEditor 内置 Camunda 表单编辑器
+ * @property {ISchema} initialSchema 初始表单
+ * @property {string} errMsg `openDiagram` 捕获到的错误信息，初始为空
+ * @property {string} state 拖拽区域状态，初始值为显示提示信息
+ */
 @Options({
   computed: {
-    // 判断当前是否存在表单
-    withSchema() {
+    /**
+     * 判断当前是否存在图表
+     *
+     * @public
+     * @returns {boolean} 存在图表为true，反之为false
+     */
+    withSchema(): boolean {
       return this.state.includes('with-schema');
     },
   },
@@ -74,18 +87,32 @@ import { ISchema } from '@/lib/ISchema';
 })
 export default class CustomFormEditor extends Vue {
   private formEditor?: FormEditor ;
+  /**
+   * @readonly
+   * @default { type: 'default', components: [] }
+   */
   private initialSchema: ISchema = { type: 'default', components: [] };
-
-  // openDiagram捕获到的错误信息，初始为空
+  /** @default '' */
   private errMsg = '';
-  // 拖拽区域状态，初始值为显示提示信息
+  /** @default 'content' */
   private state = 'content';
 
+  /**
+   * 新建表单
+   *
+   * @async
+   */
   public async createNewForm(): Promise<void> {
     await this.openSchema(this.initialSchema);
   }
 
-  // 打开新表单，使用异步方式读取内容
+  /**
+   * 打开新表单，使用异步方式读取内容
+   *
+   * @protected
+   * @async
+   * @param {ISchema} schema 待导入表单
+   */
   protected async openSchema(schema: ISchema): Promise<void> {
     try {
       await this.formEditor?.importSchema(schema);
@@ -97,7 +124,11 @@ export default class CustomFormEditor extends Vue {
     }
   }
 
-  // 处理拖拽事件
+  /**
+   * 处理拖拽事件
+   *
+   * @param {DragEvent} event 拖拽事件
+   */
   public handelDragOver(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
@@ -107,7 +138,11 @@ export default class CustomFormEditor extends Vue {
     event.dataTransfer!.dropEffect = 'copy';
   }
 
-  // 处理释放事件
+  /**
+   * 处理释放事件
+   *
+   * @param {DragEvent} event 释放事件
+   */
   public handleFileSelect(event: DragEvent): void {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
@@ -134,7 +169,9 @@ export default class CustomFormEditor extends Vue {
     reader.readAsText(file);
   }
 
-  // 保存表单
+  /**
+   * 保存表单
+   */
   public saveSchema(): void {
     try {
       // 获取JSON文本
@@ -148,7 +185,9 @@ export default class CustomFormEditor extends Vue {
     }
   }
 
-  // 打开文件对话框
+  /**
+   * 打开文件对话框
+   */
   public openFileDialog(): void {
     document.querySelector<HTMLElement>('#file-input')?.click();
   }

@@ -7,30 +7,71 @@ import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';
 import ToolBar from './ToolBar.vue';
 
+/**
+ * 基础模型编辑器
+ *
+ * @property {any} modeler 内置的 Camunda Modeler
+ * @property {any} commandStack 指令栈，用于撤销/重做
+ * @property {string} initialDiagram 初始图表
+ * @property {string} mimeType MIME-TYPE
+ * @property {string} fileExtension 文件扩展名，不包含`.`
+ * @property {string} errMsg `openDiagram` 捕获到的错误信息，初始为空
+ * @property {string} state 拖拽区域状态，初始值为显示提示信息
+ */
 @Options({
   components: {
     ToolBar,
   },
   computed: {
-    // 判断当前是否存在图表
+    /**
+     * 判断当前是否存在图表
+     *
+     * @public
+     * @returns {boolean} 存在图表为true，反之为false
+     */
     withDiagram() {
       return this.state.includes('with-diagram');
     },
   },
 })
-export default class DecisionModeler extends Vue {
+export default class BaseModeler extends Vue {
+  /** @member */
   modeler;
+  /** @member */
   commandStack;
+  /**
+   * @readonly
+   * @member {string}
+   */
   initialDiagram;
+  /**
+   * @readonly
+   * @member {string}
+   */
   mimeType;
+  /**
+   * @readonly
+   * @member {string}
+   */
   fileExtension;
-
-  // openDiagram捕获到的错误信息，初始为空
+  /**
+   * @member {string}
+   * @default ''
+   */
   errMsg = '';
-  // 拖拽区域状态，初始值为显示提示信息
+  /**
+   * @member {string}
+   * @default 'content'
+   */
   state = 'content';
 
-  // 打开新图表，使用异步方式读取内容
+  /**
+   * 打开新图表，使用异步方式读取内容
+   *
+   * @protected
+   * @async
+   * @param {string} xml `XML` 格式的初始图表
+   */
   async openDiagram(xml) {
     try {
       await this.modeler.importXML(xml);
@@ -42,12 +83,20 @@ export default class DecisionModeler extends Vue {
     }
   }
 
-  // 打开图表文件
+  /**
+   * 打开图表文件
+   *
+   * @param {File} file 待导入文件
+   */
   openDiagramFile(file) {
     this.importFile(file);
   }
 
-  // 处理拖拽事件
+  /**
+   * 处理拖拽事件
+   *
+   * @param {DragEvent} event 拖拽事件
+   */
   handelDragOver(event) {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
@@ -57,7 +106,11 @@ export default class DecisionModeler extends Vue {
     event.dataTransfer.dropEffect = 'copy';
   }
 
-  // 处理释放事件
+  /**
+   * 处理释放事件
+   *
+   * @param {DragEvent} event 释放事件
+   */
   handleFileSelect(event) {
     // 阻止事件进一步传播和默认行为
     event.stopPropagation();
@@ -68,7 +121,11 @@ export default class DecisionModeler extends Vue {
     this.importFile(file);
   }
 
-  // 将文件导入Modeler
+  /**
+   * 将文件导入Modeler
+   *
+   * @param {File} file 待导入文件
+   */
   importFile(file) {
     const reader = new FileReader();
 
@@ -84,13 +141,19 @@ export default class DecisionModeler extends Vue {
     reader.readAsText(file);
   }
 
-  // 新建图表功能
+  /**
+   * 新建图表功能
+   */
   createNewDiagram() {
     // 打开初始图表
     this.openDiagram(this.initialDiagram);
   }
 
-  // 将流程保存为XML格式的定义，异步执行
+  /**
+   * 将流程保存为XML格式的定义，异步执行
+   *
+   * @async
+   */
   async saveXML() {
     try {
       // 获取XML文本，不执行格式化
@@ -104,7 +167,11 @@ export default class DecisionModeler extends Vue {
     }
   }
 
-  // 将流程保存为SVG格式的图片，异步执行
+  /**
+   * 将流程保存为SVG格式的图片，异步执行
+   *
+   * @async
+   */
   async saveSVG() {
     try {
       // 获取SVG文本
@@ -118,12 +185,16 @@ export default class DecisionModeler extends Vue {
     }
   }
 
-  // 撤销
+  /**
+   * 撤销
+   */
   undo() {
     this.commandStack.undo();
   }
 
-  // 重做
+  /**
+   * 重做
+   */
   redo() {
     this.commandStack.redo();
   }

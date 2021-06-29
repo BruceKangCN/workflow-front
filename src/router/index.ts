@@ -4,6 +4,14 @@ import ProcessModelerView from '@/views/ProcessModelerView.vue';
 import DecisionModelerView from '@/views/DecisionModelerView.vue';
 import FormEditorView from '@/views/FormEditorView.vue';
 
+/**
+ * 路由记录
+ *
+ * @private
+ * @static
+ * @readonly
+ * @memberof Router
+ */
 const routes: RouteRecordRaw[] = [
   { path: '/', component: HomeView },
   { path: '/process-modeler', component: ProcessModelerView },
@@ -11,6 +19,12 @@ const routes: RouteRecordRaw[] = [
   { path: '/form-editor', component: FormEditorView },
 ];
 
+/**
+ * 路由器
+ *
+ * @static
+ * @readonly
+ */
 const router: Router = createRouter({
   history: createWebHashHistory(),
   routes,

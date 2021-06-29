@@ -66,6 +66,11 @@ import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json'
 
 import BaseModeler from './common/BaseModeler.vue';
 
+/**
+ * 流程编辑器
+ *
+ * @augments BaseModeler
+ */
 @Options({
   // 在实例挂载时初始化modeler字段，否则无法获取到DOM
   mounted() {
@@ -98,9 +103,22 @@ import BaseModeler from './common/BaseModeler.vue';
   },
 })
 export default class ProcessModeler extends BaseModeler {
+  /**
+   * @readonly
+   * @member {string}
+   * @default 'application/bpmn20-xml'
+   */
   mimeType = 'application/bpmn20-xml';
+  /**
+   * @readonly
+   * @member {string}
+   * @default 'bpmn'
+   */
   fileExtension = 'bpmn';
-  // 定义初始图表
+  /**
+   * @readonly
+   * @member {string}
+   */
   initialDiagram = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_0g4n8qy" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">',
@@ -118,7 +136,11 @@ export default class ProcessModeler extends BaseModeler {
   ].join('\n');
 
   // TODO 实现部署功能
-  // 部署流程到工作流引擎
+  /**
+   * 部署流程到工作流引擎
+   *
+   * @async
+   */
   async deploy() {
     const {xml} = await this.modeler.saveXML({format: false});
     console.log('prepare to deploy: ' + xml);

@@ -59,6 +59,11 @@ import camundaModdleDescriptor from 'camunda-dmn-moddle/resources/camunda';
 
 import BaseModeler from './common/BaseModeler.vue';
 
+/**
+ * 决策编辑器
+ *
+ * @augments BaseModeler
+ */
 @Options({
   mounted() {
     this.modeler = new DmnModeler({
@@ -95,8 +100,22 @@ import BaseModeler from './common/BaseModeler.vue';
   },
 })
 export default class DecisionModeler extends BaseModeler {
+  /**
+   * @readonly
+   * @member {string}
+   * @default 'application/dmn13-xml'
+   */
   mimeType = 'application/dmn13-xml';
+  /**
+   * @readonly
+   * @member {string}
+   * @default 'dmn'
+   */
   fileExtension = 'dmn';
+  /**
+   * @readonly
+   * @member {string}
+   */
   initialDiagram = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_15pefcj" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">',
