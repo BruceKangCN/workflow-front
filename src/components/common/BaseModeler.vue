@@ -30,6 +30,7 @@ export default class BaseModeler extends Vue {
   /**
    * 内置的 Camunda Modeler
    *
+   * @private
    * @type {any}
    */
   modeler;
@@ -37,6 +38,7 @@ export default class BaseModeler extends Vue {
   /**
    * 指令栈，用于撤销/重做
    *
+   * @private
    * @type {any}
    */
   commandStack;
@@ -44,6 +46,7 @@ export default class BaseModeler extends Vue {
   /**
    * 初始图表
    *
+   * @private
    * @readonly
    * @type {string}
    */
@@ -52,6 +55,7 @@ export default class BaseModeler extends Vue {
   /**
    * MIME-TYPE
    *
+   * @private
    * @readonly
    * @type {string}
    */
@@ -60,6 +64,7 @@ export default class BaseModeler extends Vue {
   /**
    * 文件扩展名，不包含 `.`
    *
+   * @private
    * @readonly
    * @type {string}
    */
@@ -68,13 +73,16 @@ export default class BaseModeler extends Vue {
   /**
    * `openDiagram` 捕获到的错误信息，初始为空
    *
+   * @private
    * @type {string}
    * @default ''
    */
   errMsg = '';
+
   /**
    * 拖拽区域状态，初始值为显示提示信息
    *
+   * @private
    * @member {string}
    * @default 'content'
    */

@@ -75,7 +75,7 @@ import { ISchema } from '@/lib/ISchema';
   },
   mounted() {
     this.formEditor = new FormEditor({
-      container: document.querySelector('#form-editor') || '#form-editor',
+      container: '#form-editor',
     });
   },
 })

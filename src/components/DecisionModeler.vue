@@ -65,6 +65,7 @@ import BaseModeler from './common/BaseModeler.vue';
  * @augments BaseModeler
  */
 @Options({
+  // 在实例挂载时初始化modeler字段，否则无法获取到DOM
   mounted() {
     this.modeler = new DmnModeler({
       // 容器画布
@@ -101,6 +102,7 @@ import BaseModeler from './common/BaseModeler.vue';
 })
 export default class DecisionModeler extends BaseModeler {
   /**
+   * @private
    * @readonly
    * @type {string}
    * @default 'application/dmn13-xml'
@@ -108,6 +110,7 @@ export default class DecisionModeler extends BaseModeler {
   mimeType = 'application/dmn13-xml';
 
   /**
+   * @private
    * @readonly
    * @type {string}
    * @default 'dmn'
@@ -115,6 +118,7 @@ export default class DecisionModeler extends BaseModeler {
   fileExtension = 'dmn';
 
   /**
+   * @private
    * @readonly
    * @type {string}
    */

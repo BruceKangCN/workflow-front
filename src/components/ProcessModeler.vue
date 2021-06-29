@@ -104,6 +104,7 @@ import BaseModeler from './common/BaseModeler.vue';
 })
 export default class ProcessModeler extends BaseModeler {
   /**
+   * @private
    * @readonly
    * @type {string}
    * @default 'application/bpmn20-xml'
@@ -111,6 +112,7 @@ export default class ProcessModeler extends BaseModeler {
   mimeType = 'application/bpmn20-xml';
 
   /**
+   * @private
    * @readonly
    * @type {string}
    * @default 'bpmn'
@@ -118,6 +120,7 @@ export default class ProcessModeler extends BaseModeler {
   fileExtension = 'bpmn';
 
   /**
+   * @private
    * @readonly
    * @type {string}
    */
