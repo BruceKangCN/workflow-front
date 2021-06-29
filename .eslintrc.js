@@ -22,7 +22,7 @@ module.exports = {
     'max-len': ['warn', {
       code: 80,
       tabWidth: 2,
-      ignorePattern: `^import .+;?$`, // ignore import statements
+      ignorePattern: '^import .+;?$', // ignore import statements
       ignoreUrls: true,
       ignoreStrings: true,
       ignoreRegExpLiterals: true,
