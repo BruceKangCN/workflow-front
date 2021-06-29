@@ -102,19 +102,21 @@ import BaseModeler from './common/BaseModeler.vue';
 export default class DecisionModeler extends BaseModeler {
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    * @default 'application/dmn13-xml'
    */
   mimeType = 'application/dmn13-xml';
+
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    * @default 'dmn'
    */
   fileExtension = 'dmn';
+
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    */
   initialDiagram = [
     '<?xml version="1.0" encoding="UTF-8"?>',

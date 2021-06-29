@@ -18,6 +18,7 @@ module.exports = {
     // use @typescript-eslint/indent instead in typescript!
     'indent': 'off',
     // error
+    'no-var': 'error',
     'brace-style': ['error', '1tbs', { 'allowSingleLine': true }],
     'no-tabs': ['error'],
     'no-trailing-spaces': ['error'],

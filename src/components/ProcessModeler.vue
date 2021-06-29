@@ -105,19 +105,21 @@ import BaseModeler from './common/BaseModeler.vue';
 export default class ProcessModeler extends BaseModeler {
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    * @default 'application/bpmn20-xml'
    */
   mimeType = 'application/bpmn20-xml';
+
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    * @default 'bpmn'
    */
   fileExtension = 'bpmn';
+
   /**
    * @readonly
-   * @member {string}
+   * @type {string}
    */
   initialDiagram = [
     '<?xml version="1.0" encoding="UTF-8"?>',

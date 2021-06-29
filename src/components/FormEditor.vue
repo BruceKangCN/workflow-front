@@ -61,18 +61,12 @@ import { ISchema } from '@/lib/ISchema';
 
 /**
  * 表单编辑器
- *
- * @property {FormEditor} formEditor 内置 Camunda 表单编辑器
- * @property {ISchema} initialSchema 初始表单
- * @property {string} errMsg `openDiagram` 捕获到的错误信息，初始为空
- * @property {string} state 拖拽区域状态，初始值为显示提示信息
  */
 @Options({
   computed: {
     /**
      * 判断当前是否存在图表
      *
-     * @public
      * @returns {boolean} 存在图表为true，反之为false
      */
     withSchema(): boolean {
@@ -86,15 +80,31 @@ import { ISchema } from '@/lib/ISchema';
   },
 })
 export default class CustomFormEditor extends Vue {
-  private formEditor?: FormEditor ;
   /**
+   * 内置的 Camunda 表单编辑器
+   */
+  private formEditor?: FormEditor;
+
+  /**
+   * 初始表单
+   *
    * @readonly
    * @default { type: 'default', components: [] }
    */
   private initialSchema: ISchema = { type: 'default', components: [] };
-  /** @default '' */
+
+  /**
+   * `openDiagram` 捕获到的错误信息，初始为空
+   *
+   * @default ''
+   */
   private errMsg = '';
-  /** @default 'content' */
+
+  /**
+   * 拖拽区域状态，初始值为显示提示信息
+   *
+   * @default 'content'
+   */
   private state = 'content';
 
   /**

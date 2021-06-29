@@ -9,14 +9,6 @@ import ToolBar from './ToolBar.vue';
 
 /**
  * 基础模型编辑器
- *
- * @property {any} modeler 内置的 Camunda Modeler
- * @property {any} commandStack 指令栈，用于撤销/重做
- * @property {string} initialDiagram 初始图表
- * @property {string} mimeType MIME-TYPE
- * @property {string} fileExtension 文件扩展名，不包含`.`
- * @property {string} errMsg `openDiagram` 捕获到的错误信息，初始为空
- * @property {string} state 拖拽区域状态，初始值为显示提示信息
  */
 @Options({
   components: {
@@ -26,7 +18,7 @@ import ToolBar from './ToolBar.vue';
     /**
      * 判断当前是否存在图表
      *
-     * @public
+     * @this BaseModeler
      * @returns {boolean} 存在图表为true，反之为false
      */
     withDiagram() {
@@ -35,31 +27,54 @@ import ToolBar from './ToolBar.vue';
   },
 })
 export default class BaseModeler extends Vue {
-  /** @member */
-  modeler;
-  /** @member */
-  commandStack;
   /**
+   * 内置的 Camunda Modeler
+   *
+   * @type {any}
+   */
+  modeler;
+
+  /**
+   * 指令栈，用于撤销/重做
+   *
+   * @type {any}
+   */
+  commandStack;
+
+  /**
+   * 初始图表
+   *
    * @readonly
-   * @member {string}
+   * @type {string}
    */
   initialDiagram;
+
   /**
+   * MIME-TYPE
+   *
    * @readonly
-   * @member {string}
+   * @type {string}
    */
   mimeType;
+
   /**
+   * 文件扩展名，不包含 `.`
+   *
    * @readonly
-   * @member {string}
+   * @type {string}
    */
   fileExtension;
+
   /**
-   * @member {string}
+   * `openDiagram` 捕获到的错误信息，初始为空
+   *
+   * @type {string}
    * @default ''
    */
   errMsg = '';
   /**
+   * 拖拽区域状态，初始值为显示提示信息
+   *
    * @member {string}
    * @default 'content'
    */

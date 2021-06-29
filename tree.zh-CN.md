@@ -6,6 +6,7 @@
     * **src** ℹ 源代码目录
         * **assets** ℹ 资源文件目录
         * **components** ℹ 组件目录
+        * **lib** ℹ 库目录
         * **router** ℹ 路由器目录
         * **views** ℹ 视图目录
         * **App.vue** ℹ 应用入口
