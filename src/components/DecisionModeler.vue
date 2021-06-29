@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable max-len -->
   <!-- 组件根节点 -->
   <div
     id="root"

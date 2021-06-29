@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable max-len -->
   <header>
     <nav>
       <ul>

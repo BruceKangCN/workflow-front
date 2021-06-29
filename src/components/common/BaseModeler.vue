@@ -1,6 +1,7 @@
 <script>
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// **NOTE.en-US**: this is a **JS module**, because bpmn-js, dmn-js written in js
+// **NOTE.en-US**: this is a **JS module**,
+//                 because bpmn-js, dmn-js is written in js
 // **NOTE.zh-CN**: 这是一个 **JS模块**，因为 bpmn-js，dmn-js 是使用 js 编写的
 import { Vue, Options } from 'vue-class-component';
 import FileSaver from 'file-saver';

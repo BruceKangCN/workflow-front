@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable max-len -->
   <!-- 组件根节点 -->
   <div
     id="root"
@@ -62,7 +63,6 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
-
 
 import BaseModeler from './common/BaseModeler.vue';
 
