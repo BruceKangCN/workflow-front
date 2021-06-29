@@ -145,7 +145,11 @@ export default class DecisionModeler extends BaseModeler {
     '</definitions>',
   ].join('\n');
 
+  /**
+   * @override
+   */
   undo() {
+    // 暂未找到获取指令栈的方法，使用 <C-z> 触发撤销
     const event = new KeyboardEvent('keydown', {
       ctrlKey: true,
       key: 'z',
@@ -153,7 +157,11 @@ export default class DecisionModeler extends BaseModeler {
     document.querySelector('#root').dispatchEvent(event);
   }
 
+  /**
+   * @override
+   */
   redo() {
+    // 暂未找到获取指令栈的方法，使用 <C-y> 触发重做
     const event = new KeyboardEvent('keydown', {
       ctrlKey: true,
       key: 'y',
