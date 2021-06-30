@@ -8,7 +8,7 @@
 /**
  * 字段类型定义
  */
-enum fieldType {
+export enum fieldType {
   textfieldField = 'textfield',
   numberField = 'number',
   checkboxField = 'checkbox',
@@ -21,7 +21,7 @@ enum fieldType {
 /**
  * 按钮行为定义
  */
-enum action {
+export enum action {
   resetAction = 'reset',
   submitAction = 'submit',
 }
