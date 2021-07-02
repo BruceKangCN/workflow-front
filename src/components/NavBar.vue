@@ -1,18 +1,19 @@
 <template>
   <!-- eslint-disable max-len -->
-  <header>
-    <nav>
-      <ul>
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/process-modeler">Process Modeler</router-link></li>
-        <li><router-link to="/decision-modeler">Decision Modeler</router-link></li>
-        <li><router-link to="/form-editor">Form Editor</router-link></li>
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <ul>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/process-modeler">Process Modeler</router-link></li>
+      <li><router-link to="/decision-modeler">Decision Modeler</router-link></li>
+      <li><router-link to="/form-editor">Form Editor</router-link></li>
+    </ul>
+  </nav>
 </template>
 
 <style scoped>
+nav {
+  height: 1.25em;
+}
 li {
   /* 使导航栏内li元素横向排列 */
   display: inline-block;

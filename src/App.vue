@@ -19,6 +19,7 @@ export default class App extends Vue {}
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
 #app {
   /* 使app充满整个页面 */
