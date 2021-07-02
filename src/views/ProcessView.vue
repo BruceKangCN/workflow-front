@@ -1,22 +1,23 @@
 <template>
   <div id="container">
     <ProcessList id="process-list" @processSelected="handleSelected" />
-    <div id="process-detail">
-      <pre>{{ currentProcess }}</pre>
-      <div v-html="diagram"></div>
-    </div>
+    <ProcessDetail :process="currentProcess" />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Axios from 'axios';
-import ProcessList from '@/components/ProcessList.vue';
 import { IProcessDefinitionDto } from '@/lib/IProcessDefinitionDto';
+import ProcessList from '@/components/ProcessList.vue';
+import ProcessDetail from '@/components/ProcessDetail.vue';
 
+/**
+ * 流程定义列表及详情展示视图
+ */
 @Options({
   components: {
     ProcessList,
+    ProcessDetail,
   },
 })
 export default class ProcessView extends Vue {
@@ -25,17 +26,13 @@ export default class ProcessView extends Vue {
    */
   private currentProcess: IProcessDefinitionDto | null = null;
 
-  private apiUrl = process.env.VUE_APP_REST_API_URL;
-
   /**
-   * 当前流程对应的 `SVG` 图表
+   * 处理流程选择事件
+   *
+   * @param {IProcessDefinitionDto} process 被选择的流程
    */
-  private diagram = '';
-
-  public async handleSelected(process: IProcessDefinitionDto): Promise<void> {
+  public handleSelected(process: IProcessDefinitionDto): void {
     this.currentProcess = process;
-    this.diagram = (await Axios.get(this.apiUrl + '/process-definition/' + this.currentProcess.id + '/diagram')).data;
-    console.log(this.diagram);
   }
 }
 </script>

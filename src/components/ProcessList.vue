@@ -42,6 +42,9 @@ import { Vue, Options } from 'vue-class-component';
 import Axios from 'axios';
 import { IProcessDefinitionDto } from '@/lib/IProcessDefinitionDto';
 
+/**
+ * 流程定义列表
+ */
 @Options({
   created() {
     this.refresh();
