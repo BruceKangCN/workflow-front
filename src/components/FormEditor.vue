@@ -190,7 +190,7 @@ export default class CustomFormEditor extends Vue {
       const blob = new Blob([json], {type: 'application/form-schema;charset=utf-8'});
       // 保存该对象
       FileSaver.saveAs(blob, 'form.form');
-    } catch(err) {
+    } catch (err) {
       console.error('Error occured while saving form: ', err);
     }
   }

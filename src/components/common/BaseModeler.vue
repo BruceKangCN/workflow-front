@@ -185,7 +185,7 @@ export default class BaseModeler extends Vue {
       const blob = new Blob([xml], {type: this.mimeType + ';charset=utf-8'});
       // 保存该对象
       FileSaver.saveAs(blob, 'diagram.' + this.fileExtension);
-    } catch(err) {
+    } catch (err) {
       console.error('Error occured while saving XML: ', err);
     }
   }
@@ -203,7 +203,7 @@ export default class BaseModeler extends Vue {
       const blob = new Blob([svg], {type: this.mimeType + ';charset=utf-8'});
       // 保存该对象
       FileSaver.saveAs(blob, 'diagram.svg');
-    } catch(err) {
+    } catch (err) {
       console.error('Error occured while saving SVG: ', err);
     }
   }

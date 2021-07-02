@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@bpmn-io/form-js": "^0.2.4",
+    "axios": "^0.21.1",
     "bpmn-js": "^8.7.0",
     "bpmn-js-properties-panel": "^0.43.1",
     "camunda-bpmn-moddle": "^5.1.2",
