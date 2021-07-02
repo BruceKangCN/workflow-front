@@ -32,7 +32,9 @@
     </div>
     <footer>
       <hr/>
-      <input type="button" value="refresh" @click="refresh" />
+      <div class="button-area">
+        <input type="button" value="refresh" @click="refresh" />
+      </div>
     </footer>
   </div>
 </template>
@@ -166,17 +168,15 @@ footer,
 input[type=text] {
   width: 100%;
 }
-footer {
+.button-area {
   display: flex;
-  flex-flow: column;
-  align-items: flex-end;
+  justify-content: flex-end;
 }
 footer input[type=button] {
   width: 8em;
 }
 hr {
-  width: 100%;
-  margin: 5px;
+  margin: 5px 0px;
 }
 .list {
   overflow: auto;
