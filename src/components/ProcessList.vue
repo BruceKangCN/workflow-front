@@ -184,13 +184,13 @@ hr {
 }
 li.key-list p::before {
   margin: 0.5em;
-  content: "➕";
+  content: "➖";
 }
 li.key-list ol li:hover {
   background-color: #eaeaea;
 }
 li.key-list.collapsed p::before {
-  content: "➖";
+  content: "➕";
 }
 li.key-list.collapsed ol {
   display: none;
