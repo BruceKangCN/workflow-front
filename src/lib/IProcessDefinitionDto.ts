@@ -24,3 +24,26 @@ export interface IProcessDefinitionDto {
   historyTimeToLive: number | null;
   startableInTasklist: boolean;
 }
+
+/**
+ * `Start Instance` 接口返回的结果定义
+ */
+export interface IStartInstanceDto {
+  definitionId: string,
+  id: string,
+  ended: boolean,
+  suspended: boolean,
+  links: ILink[],
+  businessKey: string | null,
+  caseInstanceId: string | null,
+  tenantId: string | null,
+}
+
+/**
+ * 流程实例链接定义
+ */
+export interface ILink {
+  href: string,
+  method: string,
+  rel: string,
+}
