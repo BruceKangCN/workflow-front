@@ -140,6 +140,15 @@ export default class ProcessModeler extends BaseModeler {
     '</bpmn:definitions>',
   ].join('\n');
 
+  /**
+   * 获取流程定义
+   *
+   * @returns {any} 流程定义
+   */
+  getProcessDefinitions() {
+    return this.modeler.getDefinitions().rootElements[0];
+  }
+
   // TODO 实现部署功能
   /**
    * 部署流程到工作流引擎
