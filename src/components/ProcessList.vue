@@ -24,7 +24,7 @@
               :key="process.id"
               @click="$emit('processSelected', process)"
             >
-              {{ process.version }}
+              {{ process.suspended ? '❌' : '✔' }} {{ process.version }}
             </li>
           </ol>
         </li>
@@ -33,7 +33,7 @@
     <footer>
       <hr/>
       <div class="button-area">
-        <input type="button" value="refresh" @click="refresh" />
+        <input type="button" value="🔄 refresh" @click="refresh" />
       </div>
     </footer>
   </div>
@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import Axios from 'axios';
+import Lodash from 'lodash';
 import { IProcessDefinitionDto } from '@/lib/IProcessDefinitionDto';
 
 /**
@@ -85,8 +86,9 @@ export default class ProcessList extends Vue {
    * 过滤器
    */
   public filter(): void {
+    // 若模式为空，直接返回 `processMap` 的深拷贝
     if (this.pattern === '') {
-      this.filteredProcessMap = new Map(this.processMap);
+      this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
       return;
     }
     // 将过滤出的 `Map` 清空
@@ -105,8 +107,9 @@ export default class ProcessList extends Vue {
    * @async
    */
   public async refresh(): Promise<void> {
-    // 重置过滤模式
+    // 重置过滤模式及流程Map
     this.pattern = '';
+    this.processMap = new Map<string, IProcessDefinitionDto[]>();
 
     const response = await Axios.get(this.apiUrl + '/process-definition');
     const data: IProcessDefinitionDto[] = response.data;
@@ -126,7 +129,7 @@ export default class ProcessList extends Vue {
     }
 
     // 刷新后默认显示所有流程
-    this.filteredProcessMap = new Map(this.processMap);
+    this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
   }
 
   /**
@@ -142,16 +145,6 @@ export default class ProcessList extends Vue {
       el.classList.value = 'key-list collapsed';
     }
   }
-
-  /**
-   * 切换当前被激活的元素
-   *
-   * @param {event} event 触发方法的事件
-   */
-  // public activate(event: Event): void {
-  //   this.currentElement = event.target as HTMLElement;
-  //   this.currentElement
-  // }
 }
 </script>
 
@@ -182,17 +175,17 @@ hr {
   overflow: auto;
   flex-grow: 1;
 }
-li.key-list p::before {
+.key-list p::before {
   margin: 0.5em;
   content: "➖";
 }
-li.key-list ol li:hover {
+.key-list ol li:hover {
   background-color: #eaeaea;
 }
-li.key-list.collapsed p::before {
+.key-list.collapsed p::before {
   content: "➕";
 }
-li.key-list.collapsed ol {
+.key-list.collapsed ol {
   display: none;
 }
 </style>
