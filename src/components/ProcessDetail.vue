@@ -119,19 +119,24 @@ export default class ProcessView extends Vue {
       process.id,
       '/diagram',
     ].join('');
-    const response = await Axios.get(url);
 
-    switch (response.status) {
-      case 200:
-        this.diagram = response.data;
-        break;
-      case 204:
-        this.diagram = '';
-        break;
-      case 404:
-        console.error('ProcessDefinitionId does not exist!', response.data);
-        break;
-      default: break;
+    try {
+      const response = await Axios.get(url);
+
+      switch (response.status) {
+        case 200:
+          this.diagram = response.data;
+          break;
+        case 204:
+          this.diagram = '';
+          break;
+        case 404:
+          console.error('ProcessDefinitionId does not exist!', response.data);
+          break;
+        default: break;
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -141,32 +146,38 @@ export default class ProcessView extends Vue {
    *
    * @async
    * @param {IProcessDefinitionDto} process 流程定义
-   * @returns {IStartInstanceDto} 关于被启动实例的信息
+   * @returns {IStartInstanceDto | null} 关于被启动实例的信息
    */
   public async startInstance(process: IProcessDefinitionDto)
-    : Promise<IStartInstanceDto> {
+    : Promise<IStartInstanceDto | null> {
     const url = [
       this.apiUrl,
       '/process-definition/',
       process.id,
       '/start',
     ].join('');
-    const response = await Axios.post(url, this.startForm);
 
-    switch (response.status) {
-      case 400:
-        console.error('Invalid value!', response.data);
-        break;
-      case 404:
-        console.error('ProcessDefinitionId does not exist!', response.data);
-        break;
-      case 500:
-        console.error('The instance could not be created successfully', response.data);
-        break;
-      default: break;
+    try {
+      const response = await Axios.post(url, this.startForm);
+
+      switch (response.status) {
+        case 400:
+          console.error('Invalid value!', response.data);
+          break;
+        case 404:
+          console.error('ProcessDefinitionId does not exist!', response.data);
+          break;
+        case 500:
+          console.error('The instance could not be created successfully', response.data);
+          break;
+        default: break;
+      }
+
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      return null;
     }
-
-    return response.data;
   }
 
   /**
@@ -183,13 +194,18 @@ export default class ProcessView extends Vue {
       '/process-definition/',
       process.id,
     ].join('');
-    const response = await Axios.delete(url, { params: { cascade } });
 
-    switch (response.status) {
-      case 404:
-        console.error('ProcessDefinitionId does not exist!', response.data);
-        break;
-      default: break;
+    try {
+      const response = await Axios.delete(url, { params: { cascade } });
+
+      switch (response.status) {
+        case 404:
+          console.error('ProcessDefinitionId does not exist!', response.data);
+          break;
+        default: break;
+      }
+    } catch(err) {
+      console.error(err);
     }
   }
 }

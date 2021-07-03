@@ -111,25 +111,35 @@ export default class ProcessList extends Vue {
     this.pattern = '';
     this.processMap = new Map<string, IProcessDefinitionDto[]>();
 
-    const response = await Axios.get(this.apiUrl + '/process-definition');
-    const data: IProcessDefinitionDto[] = response.data;
+    try {
+      const response = await Axios.get(this.apiUrl + '/process-definition');
 
-    for (let i = 0; i < data.length; i++) {
-      // 获取流程及其定义的key
-      const process = data[i];
-      const key: string = process.key;
+      const data: IProcessDefinitionDto[] = response.data;
+      switch (response.status) {
+        case 200:
+          for (let i = 0; i < data.length; i++) {
+            // 获取流程及其定义的key
+            const process = data[i];
+            const key: string = process.key;
 
-      // 若map中不存在相应键，则创建新数组
-      if (!this.processMap.has(key)) {
-        this.processMap.set(key, []);
+            // 若map中不存在相应键，则创建新数组
+            if (!this.processMap.has(key)) {
+              this.processMap.set(key, []);
+            }
+
+            // 将流程存入map
+            this.processMap.get(key)!.push(process);
+          }
+
+          // 刷新后默认显示所有流程
+          this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
+
+          break;
+        default: break;
       }
-
-      // 将流程存入map
-      this.processMap.get(key)!.push(process);
+    } catch (err) {
+      console.error(err);
     }
-
-    // 刷新后默认显示所有流程
-    this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
   }
 
   /**
