@@ -415,6 +415,7 @@ export default class ProcessModeler extends BaseModeler {
 }
 .form .file-list {
   flex-grow: 1;
+  overflow: auto;
 }
 .form .file-list input[type=button] {
   width: 1em;
