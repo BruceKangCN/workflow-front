@@ -11,7 +11,7 @@
       type="file"
       id="file-input"
       @change="$emit('openDiagramFile', $event.target.files[0])"
-      v-show="false"
+      style="display: none;"
     />
     <span class="v-splitter"></span>
     <!-- 保存 -->
