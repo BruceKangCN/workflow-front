@@ -19,7 +19,7 @@
         type="button"
         value="deploy"
         title="deploy the process"
-        @click="deploy"
+        @click="showForm = true"
       />
     </ToolBar>
     <!-- Modeler根节点 -->
@@ -50,6 +50,48 @@
       <!-- 属性面板 -->
       <div id="modeler-properties-panel" class="properties-panel-parent"></div>
     </div>
+    <!-- 部署表单 -->
+    <div v-show="showForm" class="mask">
+      <div class="form">
+        <h1>Deployment</h1>
+        <hr/>
+        <label>
+          name:
+          <input type="text" v-model="form.name" />
+        </label>
+        <label>
+          tenant id:
+          <input type="text" v-model="form.tenantId" />
+        </label>
+        <label>
+          deployment source:
+          <input type="text" v-model="form.source" />
+        </label>
+        <label>
+          enable duplicate filtering:
+          <input type="checkbox" v-model="form.filtering" />
+        </label>
+        <label>
+          deploy changed only:
+          <input type="checkbox" v-model="form.changedOnly" />
+        </label>
+        <input type="button" value="attach file" @click="openFormFileDialog" />
+        <input type="file" id="form-file" style="display: none;" @change="attachFile" />
+        <div class="file-list">
+          <ul>
+            <li v-for="(file, index) in form.files" :key="file.name">
+              {{ file.name }}
+              <input type="button" value="-" @click="removeFormFile(index)" />
+            </li>
+          </ul>
+        </div>
+        <hr/>
+        <footer>
+          <input type="button" value="cancel" @click="cancel" />
+          <input type="button" value="submit" @click="deploy" />
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,6 +105,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+import Axios from 'axios';
 
 import BaseModeler from './common/BaseModeler.vue';
 
@@ -120,6 +163,21 @@ export default class ProcessModeler extends BaseModeler {
   fileExtension = 'bpmn';
 
   /**
+   * 是否展示部署表单
+   */
+  showForm = false;
+
+  /**
+   * 部署表单
+   */
+  form = { files: [] };
+
+  /**
+   * REST API URL
+   */
+  apiUrl = process.env.VUE_APP_REST_API_URL;
+
+  /**
    * @private
    * @readonly
    * @type {string}
@@ -149,17 +207,102 @@ export default class ProcessModeler extends BaseModeler {
     return this.modeler.getDefinitions().rootElements[0];
   }
 
-  // TODO 实现部署功能
   /**
    * 部署流程到工作流引擎
    *
    * @async
+   * @returns {any} 服务器返回的信息
    */
   async deploy() {
+    // 获取流程的定义以及图表
     const {xml} = await this.modeler.saveXML({format: false});
-    console.log('prepare to deploy: ' + xml);
-    console.warn('but this method is not implemented yet!');
-    alert('not implement yet!');
+    const {svg} = await this.modeler.saveSVG();
+
+    // 转换为 `File`
+    const key = this.getProcessDefinitions().id;
+    const process = new File([xml], key + '.' + this.fileExtension);
+    const diagram = new File([svg], key + '.svg');
+
+    // 构造表单
+    let formData = new FormData();
+    formData.append('definition', process, key + '.' + this.fileExtension);
+    formData.append('diagram', diagram, key + '.svg');
+    for (let i = 0; i < this.form.files.length; i++) {
+      formData.append('file' + i, this.form.files[i], this.form.files[i].name);
+    }
+
+    if (this.form.name !== undefined) {
+      formData.set('deployment-name', this.form.name);
+    }
+    if (this.form.tenantId !== undefined) {
+      formData.set('tenant-id', this.form.tenantId);
+    }
+    if (this.form.source !== undefined) {
+      formData.set('deployment-source', this.form.source);
+    }
+    if (this.form.filtering !== undefined) {
+      formData.set(
+        'enable-duplicate-filtering',
+        this.form.filtering ? 'true' : 'false',
+      );
+    }
+    if (this.form.changedOnly !== undefined) {
+      formData.set(
+        'deploy-changed-only',
+        this.form.changedOnly ? 'true' : 'false',
+      );
+    }
+
+    // 发起请求并捕获异常
+    try {
+      const url = this.apiUrl + '/deployment/create';
+      const response = await Axios.post(url, formData);
+      switch (response.status) {
+        case 200:
+          this.form = { files: [] };
+          this.showForm = false;
+          return response.data;
+        case 400:
+          console.err('parse exception!', response.data);
+          break;
+        default: break;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   * 取消部署
+   */
+  cancel() {
+    this.form = { files: [] };
+    this.showForm = false;
+  }
+
+  /**
+   * 打开表单文件对话框
+   */
+  openFormFileDialog() {
+    document.querySelector('#form-file').click();
+  }
+
+  /**
+   * 添加表单文件
+   *
+   * @param {Event} event 触发的事件
+   */
+  attachFile(event) {
+    this.form.files.push(event.target.files[0]);
+  }
+
+  /**
+   * 移除表单文件
+   *
+   * @param {number} index 待删除文件的索引
+   */
+  removeFormFile(index) {
+    this.form.files.splice(index, 1);
   }
 }
 
@@ -177,6 +320,7 @@ export default class ProcessModeler extends BaseModeler {
   height: 100%;
   display: flex;
   flex-flow: column;
+  position: relative;
 }
 
 /* 以下复制自bpmn-js-examples/properties-panel */
@@ -243,5 +387,41 @@ export default class ProcessModeler extends BaseModeler {
   padding-bottom: 70px;
   min-height: 100%;
 }
-
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #212121;
+  opacity: 0.8;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.form {
+  display: flex;
+  flex-flow: column;
+  width: 40em;
+  height: 20em;
+  background-color: #ffffff;
+}
+.form h1 {
+  text-align: center;
+}
+.form label {
+  height: 1.25em;
+}
+.form input[type=button] {
+  width: 6em;
+}
+.form .file-list {
+  flex-grow: 1;
+}
+.form .file-list input[type=button] {
+  width: 1em;
+}
+.form footer {
+  display: flex;
+  height: 1.25em;
+  justify-content: flex-end;
+}
 </style>
