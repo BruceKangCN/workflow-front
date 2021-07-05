@@ -73,7 +73,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Axios from 'axios';
-import { IProcessDefinitionDto, IStartInstanceDto } from '@/lib/IProcessDefinitionDto';
+import { IProcessDefinitionDto, IProcessInstanceDto } from '@/lib/CamundaDto';
 
 /**
  * 流程定义详情
@@ -146,10 +146,10 @@ export default class ProcessView extends Vue {
    *
    * @async
    * @param {IProcessDefinitionDto} process 流程定义
-   * @returns {IStartInstanceDto | null} 关于被启动实例的信息
+   * @returns {IProcessInstanceDto | null} 关于被启动实例的信息
    */
   public async startInstance(process: IProcessDefinitionDto)
-    : Promise<IStartInstanceDto | null> {
+    : Promise<IProcessInstanceDto | null> {
     const url = [
       this.apiUrl,
       '/process-definition/',

@@ -1,5 +1,5 @@
 /**
- * 该文件包含后端响应的 `ProcessDefinitionDto` 对象的定义
+ * 该文件包含后端响应的各种 `DTO` 对象的定义
  *
  * @author Bruce Kang
  * @version 7.15.0
@@ -26,9 +26,9 @@ export interface IProcessDefinitionDto {
 }
 
 /**
- * `Start Instance` 接口返回的结果定义
+ * `ProcessInstanceDto` 的定义
  */
-export interface IStartInstanceDto {
+export interface IProcessInstanceDto {
   definitionId: string,
   id: string,
   ended: boolean,

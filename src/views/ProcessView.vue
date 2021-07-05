@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { IProcessDefinitionDto } from '@/lib/IProcessDefinitionDto';
+import { IProcessDefinitionDto } from '@/lib/CamundaDto';
 import ProcessList from '@/components/ProcessList.vue';
 import ProcessDetail from '@/components/ProcessDetail.vue';
 

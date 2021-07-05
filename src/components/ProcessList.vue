@@ -43,7 +43,7 @@
 import { Vue, Options } from 'vue-class-component';
 import Axios from 'axios';
 import Lodash from 'lodash';
-import { IProcessDefinitionDto } from '@/lib/IProcessDefinitionDto';
+import { IProcessDefinitionDto } from '@/lib/CamundaDto';
 
 /**
  * 流程定义列表
