@@ -63,7 +63,17 @@
       </tr>
     </table>
     <h2>Instance List</h2>
-    <!-- TODO add instances -->
+    <!-- TODO add @click -->
+    <ul>
+      <li
+        v-for="instance in instanceList"
+        :key="instance.id"
+      >
+        {{ instance.ended ? '⏹' : '▶' }}
+        {{ process.suspended ? '❌' : '✔' }}
+        {{ instance.id }}
+      </li>
+    </ul>
     <ul></ul>
     <h2>Details</h2>
     <pre>{{ process }}</pre>
@@ -86,6 +96,7 @@ import { IProcessDefinitionDto, IProcessInstanceDto } from '@/lib/CamundaDto';
     process(value): void {
       // 通过调用来执行异步方法
       this.updateDiagram(value);
+      this.getInstanceList(this.process.id);
     },
   },
 })
@@ -105,6 +116,11 @@ export default class ProcessView extends Vue {
    * 启动表单
    */
   private startForm = {};
+
+  /**
+   * 流程实例列表
+   */
+  private instanceList: IProcessInstanceDto[] = [];
 
   /**
    * 更新图表
@@ -236,6 +252,34 @@ export default class ProcessView extends Vue {
           break;
         case 404:
           console.error('ProcessDefinitionId does not exist!', response.data);
+          break;
+        default: break;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   * 获取流程实例列表
+   *
+   * @param {string} id 流程定义ID
+   */
+  public async getInstanceList(id: string): Promise<void> {
+    const url = this.apiUrl + '/process-instance';
+
+    try {
+      const response = await Axios.get(url, {
+        params: {
+          processDefinitionId: id,
+        },
+      });
+      switch (response.status) {
+        case 200:
+          this.instanceList = response.data;
+          break;
+        case 400:
+          console.error('Invalid value!', response.data);
           break;
         default: break;
       }
