@@ -64,6 +64,7 @@
     </table>
     <h2>Instance List</h2>
     <!-- TODO add @click -->
+    <span v-show="instanceList.length === 0">empty</span>
     <ul>
       <li
         v-for="instance in instanceList"
