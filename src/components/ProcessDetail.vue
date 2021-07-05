@@ -204,7 +204,42 @@ export default class ProcessView extends Vue {
           break;
         default: break;
       }
-    } catch(err) {
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // TODO add more tweaks
+  /**
+   * 切换流程激活/冻结状态
+   *
+   * @param {IProcessDefinitionDto} process 流程定义
+   */
+  public async toggleStatus(process: IProcessDefinitionDto): Promise<void> {
+    const url = [
+      this.apiUrl,
+      '/process-definition/',
+      process.id,
+      '/suspended',
+    ].join('');
+
+    try {
+      const response = await Axios.put(url, {
+        suspended: !process.suspended,
+        includeProcessInstances: false,
+        executionDate: null,
+      });
+      switch (response.status) {
+        case 204: break; // success
+        case 400:
+          console.error('Invalid value!', response.data);
+          break;
+        case 404:
+          console.error('ProcessDefinitionId does not exist!', response.data);
+          break;
+        default: break;
+      }
+    } catch (err) {
       console.error(err);
     }
   }
