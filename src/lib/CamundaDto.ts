@@ -47,3 +47,30 @@ export interface ILink {
   method: string,
   rel: string,
 }
+
+/**
+ * `TaskDto` 的定义
+ */
+export interface ITaskDto {
+  id: string,
+  executionId: string,
+  processDefinitionId: string,
+  processInstanceId: string,
+  taskDefinitionKey: string,
+  name: string,
+  priority: number,
+  suspended: boolean,
+  formKey: string,
+  created: string,
+  due: string | null,
+  followUp: string | null,
+  owner: string | null,
+  assignee: string | null,
+  tenantId: string | null,
+  parentTaskId: string | null,
+  delegationState: string | null,
+  description: string | null,
+  caseDefinitionId: string | null,
+  caseInstanceId: string | null,
+  caseExecutionId: string | null,
+}

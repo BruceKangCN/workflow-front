@@ -13,18 +13,18 @@
       <ul>
         <!-- `v-for` 遍历 `Map` 的结果为一个含有2个元素的数组，0为键， 1为值 -->
         <li
-          v-for="entry in filteredProcessMap"
+          v-for="entry in filteredTaskMap"
           :key="entry[0]"
-          class="key-list collapsed"
+          class="id-list collapsed"
         >
           <p @click="toggleCollapsed">{{ entry[0] }}</p>
           <ol>
             <li
-              v-for="process in entry[1]"
-              :key="process.id"
-              @click="$emit('processSelected', process)"
+              v-for="task in entry[1]"
+              :key="task.id"
+              @click="$emit('taskSelected', task)"
             >
-              {{ process.suspended ? '❌' : '✔' }} {{ process.version }}
+              {{ task.suspended ? '❌' : '✔' }} {{ task.name }}
             </li>
           </ol>
         </li>
@@ -40,37 +40,32 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component';
+import { Options, Vue } from 'vue-class-component';
 import Axios from 'axios';
 import Lodash from 'lodash';
-import { IProcessDefinitionDto } from '@/lib/CamundaDto';
+import { ITaskDto } from '@/lib/CamundaDto';
 
-/**
- * 流程定义列表
- */
 @Options({
   created() {
     this.refresh();
   },
-  emits: [
-    'processSelected',
-  ],
+  emits: ['taskSelected'],
 })
-export default class ProcessList extends Vue {
+export default class TaskList extends Vue {
   /**
    * 过滤模式，用于过滤出所需流程
    */
   private pattern = '';
 
   /**
-   * 流程map，键名对应流程定义key，值为数组，对应该流程所有的版本
+   * 任务map，键名对应流程定义ID，值为数组，对应该流程定义下所有的任务
    */
-  private processMap = new Map<string, IProcessDefinitionDto[]>();
+  private taskMap = new Map<string, ITaskDto[]>();
 
   /**
-   * 过滤出的流程map
+   * 过滤出的任务map
    */
-  private filteredProcessMap = new Map<string, IProcessDefinitionDto[]>();
+  private filteredTaskMap = new Map<string, ITaskDto[]>();
 
   /**
    * REST API URL
@@ -81,53 +76,53 @@ export default class ProcessList extends Vue {
    * 过滤器
    */
   public filter(): void {
-    // 若模式为空，直接返回 `processMap` 的深拷贝
+    // 若模式为空，直接返回 `taskMap` 的深拷贝
     if (this.pattern === '') {
-      this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
+      this.filteredTaskMap = Lodash.cloneDeep(this.taskMap);
       return;
     }
     // 将过滤出的 `Map` 清空
-    this.filteredProcessMap = new Map<string, IProcessDefinitionDto[]>();
+    this.filteredTaskMap = new Map<string, ITaskDto[]>();
     // 遍历 `Map`，将符合模式的键存入过滤出的 `Map`
-    this.processMap.forEach((v, k) => {
+    this.taskMap.forEach((v, k) => {
       if (k.match(this.pattern)) {
-        this.filteredProcessMap.set(k, v);
+        this.taskMap.set(k, v);
       }
     });
   }
 
   /**
-   * 刷新流程map
+   * 刷新任务map
    *
    * @async
    */
   public async refresh(): Promise<void> {
-    // 重置过滤模式及流程Map
+    // 重置过滤模式及任务Map
     this.pattern = '';
-    this.processMap = new Map<string, IProcessDefinitionDto[]>();
+    this.taskMap = new Map<string, ITaskDto[]>();
 
     try {
-      const response = await Axios.get(this.apiUrl + '/process-definition');
+      const response = await Axios.get(this.apiUrl + '/task');
 
-      const data: IProcessDefinitionDto[] = response.data;
+      const data: ITaskDto[] = response.data;
       switch (response.status) {
         case 200:
           for (let i = 0; i < data.length; i++) {
-            // 获取流程及其定义的key
-            const process = data[i];
-            const key: string = process.key;
+            // 获取任务及其对应的流程
+            const task = data[i];
+            const process: string = task.processDefinitionId;
 
             // 若map中不存在相应键，则创建新数组
-            if (!this.processMap.has(key)) {
-              this.processMap.set(key, []);
+            if (!this.taskMap.has(process)) {
+              this.taskMap.set(process, []);
             }
 
-            // 将流程存入map
-            this.processMap.get(key)!.push(process);
+            // 将任务存入map
+            this.taskMap.get(process)!.push(task);
           }
 
-          // 刷新后默认显示所有流程
-          this.filteredProcessMap = Lodash.cloneDeep(this.processMap);
+          // 刷新后默认显示所有任务
+          this.filteredTaskMap = Lodash.cloneDeep(this.taskMap);
 
           break;
         default: break;
@@ -145,9 +140,9 @@ export default class ProcessList extends Vue {
   public toggleCollapsed(event: Event): void {
     const el = (event.target as Element).parentNode as Element;
     if (el?.classList.value.includes('collapsed')) {
-      el.classList.value = 'key-list';
+      el.classList.value = 'id-list';
     } else {
-      el.classList.value = 'key-list collapsed';
+      el.classList.value = 'id-list collapsed';
     }
   }
 }
@@ -180,17 +175,17 @@ hr {
   overflow: auto;
   flex-grow: 1;
 }
-.key-list p::before {
+.id-list p::before {
   margin: 0.5em;
   content: "➖";
 }
-.key-list ol li:hover {
+.id-list ol li:hover {
   background-color: #eaeaea;
 }
-.key-list.collapsed p::before {
+.id-list.collapsed p::before {
   content: "➕";
 }
-.key-list.collapsed ol {
+.id-list.collapsed ol {
   display: none;
 }
 </style>

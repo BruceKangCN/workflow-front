@@ -4,6 +4,7 @@ import ProcessModelerView from '@/views/ProcessModelerView.vue';
 import DecisionModelerView from '@/views/DecisionModelerView.vue';
 import FormEditorView from '@/views/FormEditorView.vue';
 import ProcessView from '@/views/ProcessView.vue';
+import TaskView from '@/views/TaskView.vue';
 
 /**
  * 路由记录
@@ -19,6 +20,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/decision-modeler', component: DecisionModelerView },
   { path: '/form-editor', component: FormEditorView },
   { path: '/process', component: ProcessView },
+  { path: '/task', component: TaskView },
 ];
 
 /**

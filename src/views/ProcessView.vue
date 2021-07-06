@@ -46,7 +46,4 @@ export default class ProcessView extends Vue {
   width: 25%;
   background-color: #fafafa;
 }
-#process-detail {
-  flex-grow: 1;
-}
 </style>
