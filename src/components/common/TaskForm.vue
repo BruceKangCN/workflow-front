@@ -24,7 +24,7 @@
           :name="component.key"
           :id="component.key"
           :required="required(component)"
-        />
+        >
         <!-- 用于有选项字段的字段标签 -->
         <label v-if="hasOptions(component.type)" class="fjs-form-field-label">
           {{ component.label }}<span v-if="required(component)">*</span>
@@ -42,7 +42,7 @@
               :name="component.key"
               :value="option.value"
               :required="required(component)"
-            />
+            >
             {{ option.label }}
           </label>
         </div>

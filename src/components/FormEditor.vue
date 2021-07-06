@@ -10,19 +10,19 @@
         value="open form"
         title="open form"
         @click="openFileDialog"
-      />
+      >
       <input
         type="file"
         id="file-input"
         @change="importFile($event.target.files[0])"
         v-show="false"
-      />
+      >
       <!-- 保存表单 -->
       <input
         type="button"
         value="save form"
         @click="saveSchema"
-      />
+      >
     </div>
     <!-- Editor根节点 -->
     <div
@@ -34,7 +34,7 @@
       <!-- 欢迎界面 -->
       <div class="message intro">
         <div class="note">
-          Drop form from your desktop or <input type="button" @click="createNewForm" value="create a new form" /> to get started.
+          Drop form from your desktop or <input type="button" @click="createNewForm" value="create a new form"> to get started.
         </div>
       </div>
       <!-- 错误信息界面 -->

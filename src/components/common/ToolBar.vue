@@ -6,13 +6,13 @@
       :value="'open ' + fileType + ' diagram'"
       :title="'open ' + fileType + ' diagram'"
       @click="openFileDialog"
-    />
+    >
     <input
       type="file"
       id="file-input"
       @change="$emit('openDiagramFile', $event.target.files[0])"
       style="display: none;"
-    />
+    >
     <span class="v-splitter"></span>
     <!-- 保存 -->
     <span>save</span>
@@ -22,17 +22,17 @@
       :value="fileType + ' diagram'"
       :title="'save ' + fileType + ' diagram'"
       @click="$emit('saveXML')"
-    />
+    >
     <!-- 保存为SVG图片 -->
     <input
       type="button"
       value="SVG image"
       title="save as SVG image"
       @click="$emit('saveSVG')"
-    />
+    >
     <span class="v-splitter"></span>
-    <input type="button" value="<-" title="undo" @click="$emit('undo')" />
-    <input type="button" value="->" title="redo" @click="$emit('redo')" />
+    <input type="button" value="<-" title="undo" @click="$emit('undo')">
+    <input type="button" value="->" title="redo" @click="$emit('redo')">
     <span class="v-splitter"></span>
     <slot></slot>
   </div>

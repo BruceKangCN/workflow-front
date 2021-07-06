@@ -3,30 +3,30 @@
   <div class="root" v-if="process">
     <div v-html="diagram" class="diagram-area"></div>
     <h1>{{ process.key }} @ {{ process.version }}</h1>
-    <hr/>
+    <hr>
     <h2>Action</h2>
     <!-- TODO add form and change @click -->
     <input
       type="button"
       value="▶ start"
       @click="startInstance(process)"
-    />
+    >
     <!-- TODO implement this -->
     <input
       type="button"
       value="↔ toggle status"
       @click="toggleStatus(process)"
-    />
+    >
     <input
       type="button"
       value="❌ delete"
       @click="deleteProcess(process)"
-    />
+    >
     <input
       type="button"
       value="❗ force delete"
       @click="deleteProcess(process, true)"
-    />
+    >
     <h2>Description</h2>
     <div>{{ process.description }}</div>
     <h2>Sumary</h2>

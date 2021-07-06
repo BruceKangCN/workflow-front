@@ -20,7 +20,7 @@
         value="deploy"
         title="deploy the process"
         @click="showForm = true"
-      />
+      >
     </ToolBar>
     <!-- Modeler根节点 -->
     <div
@@ -32,7 +32,7 @@
       <!-- 欢迎界面 -->
       <div class="message intro">
         <div class="note">
-          Drop BPMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
+          Drop BPMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram"> to get started.
         </div>
       </div>
       <!-- 错误信息界面 -->
@@ -54,41 +54,41 @@
     <div v-show="showForm" class="mask">
       <div class="form">
         <h1>Deployment</h1>
-        <hr/>
+        <hr>
         <label>
           name:
-          <input type="text" v-model="form.name" />
+          <input type="text" v-model="form.name">
         </label>
         <label>
           tenant id:
-          <input type="text" v-model="form.tenantId" />
+          <input type="text" v-model="form.tenantId">
         </label>
         <label>
           deployment source:
-          <input type="text" v-model="form.source" />
+          <input type="text" v-model="form.source">
         </label>
         <label>
           enable duplicate filtering:
-          <input type="checkbox" v-model="form.filtering" />
+          <input type="checkbox" v-model="form.filtering">
         </label>
         <label>
           deploy changed only:
-          <input type="checkbox" v-model="form.changedOnly" />
+          <input type="checkbox" v-model="form.changedOnly">
         </label>
-        <input type="button" value="attach file" @click="openFormFileDialog" />
-        <input type="file" id="form-file" style="display: none;" @change="attachFile" />
+        <input type="button" value="attach file" @click="openFormFileDialog">
+        <input type="file" id="form-file" style="display: none;" @change="attachFile">
         <div class="file-list">
           <ul>
             <li v-for="(file, index) in form.files" :key="file.name">
               {{ file.name }}
-              <input type="button" value="-" @click="removeFormFile(index)" />
+              <input type="button" value="-" @click="removeFormFile(index)">
             </li>
           </ul>
         </div>
-        <hr/>
+        <hr>
         <footer>
-          <input type="button" value="cancel" @click="cancel" />
-          <input type="button" value="submit" @click="deploy" />
+          <input type="button" value="cancel" @click="cancel">
+          <input type="button" value="submit" @click="deploy">
         </footer>
       </div>
     </div>

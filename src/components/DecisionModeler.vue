@@ -24,7 +24,7 @@
       <!-- 欢迎界面 -->
       <div class="message intro">
         <div class="note">
-          Drop DMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram" /> to get started.
+          Drop DMN diagram from your desktop or <input type="button" @click="createNewDiagram" value="create a new diagram"> to get started.
         </div>
       </div>
       <!-- 错误信息界面 -->

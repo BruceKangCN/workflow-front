@@ -6,8 +6,8 @@
         placeholder="filter"
         @input="filter"
         v-model="pattern"
-      />
-      <hr/>
+      >
+      <hr>
     </header>
     <div class="list">
       <ul>
@@ -31,9 +31,9 @@
       </ul>
     </div>
     <footer>
-      <hr/>
+      <hr>
       <div class="button-area">
-        <input type="button" value="🔄 refresh" @click="refresh" />
+        <input type="button" value="🔄 refresh" @click="refresh">
       </div>
     </footer>
   </div>
