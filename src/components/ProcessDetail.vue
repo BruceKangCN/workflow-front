@@ -11,7 +11,6 @@
       value="▶ start"
       @click="startInstance(process)"
     >
-    <!-- TODO implement this -->
     <input
       type="button"
       value="↔ toggle status"
@@ -63,7 +62,6 @@
       </tr>
     </table>
     <h2>Instance List</h2>
-    <!-- TODO add @click -->
     <span v-show="instanceList.length === 0">empty</span>
     <ul>
       <li
@@ -95,7 +93,7 @@ import { IProcessDefinitionDto, IProcessInstanceDto } from '@/lib/CamundaDto';
     process(value): void {
       // 通过调用来执行异步方法
       this.updateDiagram(value);
-      this.getInstanceList(this.process.id);
+      this.getInstanceList(value.id);
     },
   },
 })

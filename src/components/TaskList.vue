@@ -89,7 +89,7 @@ export default class TaskList extends Vue {
     // 遍历 `Map`，将符合模式的键存入过滤出的 `Map`
     this.taskMap.forEach((v, k) => {
       if (k.match(this.pattern)) {
-        this.taskMap.set(k, v);
+        this.filteredTaskMap.set(k, v);
       }
     });
   }

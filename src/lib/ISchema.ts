@@ -153,12 +153,12 @@ export interface ISchema {
   /**
    * 表单类型
    */
-  type: string;
+  type?: string;
 
   /**
    * 表单组件
    */
-  components: IComponent[];
+  components?: IComponent[];
 
   /**
    * 模式版本
