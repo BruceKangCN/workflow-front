@@ -52,9 +52,7 @@ import { IProcessDefinitionDto } from '@/lib/CamundaDto';
   created() {
     this.refresh();
   },
-  emits: [
-    'processSelected',
-  ],
+  emits: ['processSelected'],
 })
 export default class ProcessList extends Vue {
   /**

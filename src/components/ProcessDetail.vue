@@ -90,9 +90,7 @@ import { IProcessDefinitionDto, IProcessInstanceDto } from '@/lib/CamundaDto';
  * 流程定义详情
  */
 @Options({
-  props: [
-    'process',
-  ],
+  props: ['process'],
   watch: {
     process(value): void {
       // 通过调用来执行异步方法
